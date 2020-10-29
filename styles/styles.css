@@ -1,0 +1,46 @@
+img {
+    width: 100%;
+}
+
+.parallax {
+    background-image: url("../assets/me.jpg");
+    height: 720px;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+.project-icon {
+    max-width: 256px;
+}
+
+a > img {
+    width: 15px;
+}
+
+.footer {
+    text-align: center;
+}
+
+#hi {
+    font-size: 48pt;
+    color: white;
+}
+
+a {
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+a:hover {
+    opacity: 70%;
+    font-size: 120%;
+}
+
+.row {
+    margin-bottom: 3vh;
+}

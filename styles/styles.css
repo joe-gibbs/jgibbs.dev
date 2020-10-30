@@ -5,7 +5,6 @@ img {
 .parallax {
     background-image: url("../assets/me.jpg");
     height: 720px;
-    background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -67,4 +66,10 @@ a:hover {
 .col-sm-2 {
     text-align: center;
     margin-bottom: 2em;
+}
+
+@media only screen and (min-width: 768px) {
+    .parallax {
+        background-attachment: fixed;
+    }
 }

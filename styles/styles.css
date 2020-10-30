@@ -73,3 +73,9 @@ a:hover {
         background-attachment: fixed;
     }
 }
+
+#email {
+    padding: .875rem 7.5rem;
+    transition: 0.3s;
+    opacity: 0.9;
+}

@@ -44,3 +44,15 @@ a:hover {
 .row {
     margin-bottom: 3vh;
 }
+
+@media (min-width: 1400px)
+{
+    .container {
+        max-width: 1000px;
+    }
+}
+
+#intro-line2 {
+    color: white;
+    opacity: 0.9;
+}

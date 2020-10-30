@@ -12,6 +12,7 @@ img {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 4em;
   }
 
 .project-icon {
@@ -25,6 +26,11 @@ a > img {
 
 .footer {
     text-align: center;
+}
+
+.section-heading {
+    text-align: center;
+    font-size: 36pt;
 }
 
 #hi {

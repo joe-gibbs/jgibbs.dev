@@ -63,3 +63,8 @@ a:hover {
     color: white;
     opacity: 0.9;
 }
+
+.col-sm-2 {
+    text-align: center;
+    margin-bottom: 2em;
+}

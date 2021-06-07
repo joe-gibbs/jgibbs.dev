@@ -5,17 +5,327 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/digital/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/digital/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/digital/favicon-16x16.png">
+    <link rel="mask-icon" href="./assets/digital/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="./assets/digital/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="./assets/digital/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Kulim+Park:wght@700&display=swap" rel="stylesheet">
     <title>Gibbs Digital - The future in web development, today</title>
+    <style>
+        html {
+            font-family: 'Kulim Park', sans-serif;
+        }
+
+        .center {
+            margin: auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            margin-left: 10%;
+            margin-right: 10%;
+            -webkit-transition-duration: 600ms;
+            transition-duration: 600ms;
+        }
+
+        .text {
+            margin-top: 25vh;
+            font-size: 7vmax;
+            user-select: none;
+            min-height: 230px;
+        }
+
+        .hidden-left {
+            transform: translate(-150%);
+        }
+
+        .hidden-right {
+            transform: translate(150%);
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+            font-size: larger;
+        }
+
+        .moreinfo-panel {
+            backdrop-filter: blur(4px);
+            display: flex;
+        }
+
+        button:hover {
+            background-color: rgba(99, 99, 99, 0.527);
+        }
+
+        #moreinfo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        ::placeholder {
+            color: rgb(59, 59, 59);
+        }
+
+        input,
+        textarea {
+            margin: 5px;
+            padding: 8px;
+            font: inherit;
+            resize: none;
+            border: 3px solid rgb(0, 0, 0);
+            width: 100%;
+        }
+
+        textarea {
+            min-height: 300px;
+        }
+
+        button {
+            padding: 10px;
+            padding-left: 20px;
+            padding-right: 20px;
+            cursor: pointer;
+            border: 3px solid black;
+            background: none;
+            font: inherit;
+            transform: translate(25px);
+            transition: 300ms;
+        }
+
+        p {
+            margin: 0;
+            margin-bottom: 10px;
+        }
+
+        .gd-info {
+            margin-left: 50px; 
+            max-width: 50%;
+        }
+
+        .contact {
+            max-width: 50%;
+        }
+
+        @media screen and (max-width: 600px) {
+            #moreinfo {
+                display: block;
+            }
+
+            .moreinfo-panel {
+                display: block;
+            }
+
+            .gd-info {
+                margin-left: 0;
+                max-width: 100%;
+            }
+
+            .contact {
+                max-width: 100%;
+                transform: translate(-20px);
+            }
+
+            #logo {
+                display: none;
+            }
+        }
+    </style>
 </head>
 
-<body>
-    <div style="width: 100%; height: 100%;" id="particles"></div>
+<body style="margin: 0">
+    <div style="width: 100%; height: 100vh;" id="particles"></div>
+    <div id="logo" style="position: absolute; left: 15px; top: 15px;"><img style="max-width: 50px; opacity: 0.5;"
+            src="./assets/digital/android-chrome-192x192.png" /></div>
+    <div class="center" id="center">
+        <h1 class="text" id="changing-headline"></h1>
+        <a href="#" id="findout">Find out more ᐅ</a>
+    </div>
+    <div class="center hidden-right" id="moreinfo">
+        <div class="moreinfo-panel">
+            <form class="contact" name="contact" netlify>
+                <input type="text" required name="name" placeholder="Name" autocapitalize autocomplete="name" />
+                <input type="email" required name="email" placeholder="Email" autocapitalize autocomplete="email" />
+                <textarea name="message" style="width: 100%;"></textarea>
+                <div style="text-align: right;">
+                    <button type="submit">Send</button>
+                </div>
+            </form>
+            <div class="gd-info">
+                <p>Gibbs Digital offers a variety of solutions for all your web design & development needs. Whether
+                    you're looking at a redesign, expanding existing content or a whole new website for your business,
+                    we've got your back.</p>
+                <p>We offer a wide variety of services, including but by not means limited to:</p>
+                <ul>
+                    <li>Website design</li>
+                    <li>Full-stack website development</li>
+                    <li>Hosting and domain management</li>
+                    <li>UI / UX Design</li>
+                    <li>SEO and conversion auditing</li>
+                </ul>
+                <p>We're an Australian-owned and operated agency located in Melbourne, so you know that when you use our
+                    services you're helping support local business.</p>
+                <p>If you're looking to boost your business's online presence, what are you waiting for? Send us a
+                    message and we'll get you sorted!</p>
+            </div>
+        </div>
+    </div>
 </body>
 
 <script src="./scripts/particles.min.js"></script>
 <script defer>
-    particlesJS.load('particles-js', './assets/particles.json', function () {
-        console.log('callback - particles.js config loaded');
+    const headlines = ["Bold.", "Interactive.", "Design.", "End-to-end web\n solutions.", "GIBBS DIGITAL."];
+    const headline = document.getElementById("changing-headline");
+    const findout = document.getElementById("findout");
+    const center = document.getElementById("center");
+    const moreinfo = document.getElementById("moreinfo");
+
+    findout.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        center.classList.add("hidden-left")
+
+        moreinfo.classList.remove("hidden-right");
+    })
+
+    let currentHeadline = 0;
+    let i = 0;
+    let reversing = false;
+    let waitTime = 0;
+
+    setInterval(() => {
+        if (waitTime > 0) {
+            waitTime--;
+            return;
+        }
+
+        headline.innerText = headlines[currentHeadline].substr(0, i);
+
+        if (reversing) {
+            i--;
+        } else {
+            i++;
+        }
+
+        if (i === headlines[currentHeadline].length + 1) {
+            reversing = true;
+            waitTime = 15;
+
+        } else if (i === 0 && reversing) {
+            reversing = false;
+            currentHeadline = currentHeadline === headlines.length - 1 ? 0 : currentHeadline + 1;
+        }
+    }, 75)
+
+    particlesJS('particles', {
+        "particles": {
+            "number": {
+                "value": 80,
+                "density": {
+                    "enable": true,
+                    "value_area": 800
+                }
+            },
+            "color": {
+                "value": "#000"
+            },
+            "shape": {
+                "type": "circle",
+                "stroke": {
+                    "width": 0,
+                    "color": "#000000"
+                },
+                "polygon": {
+                    "nb_sides": 5
+                }
+            },
+            "opacity": {
+                "value": 0.2,
+                "random": false,
+                "anim": {
+                    "enable": false,
+                    "speed": 1,
+                    "opacity_min": 0.1,
+                    "sync": false
+                }
+            },
+            "size": {
+                "value": 3,
+                "random": true,
+                "anim": {
+                    "enable": false,
+                    "speed": 40,
+                    "size_min": 0.1,
+                    "sync": false
+                }
+            },
+            "line_linked": {
+                "enable": true,
+                "distance": 150,
+                "color": "#ffffff",
+                "opacity": 0.4,
+                "width": 1
+            },
+            "move": {
+                "enable": true,
+                "speed": 2,
+                "direction": "none",
+                "random": false,
+                "straight": false,
+                "out_mode": "out",
+                "attract": {
+                    "enable": false,
+                    "rotateX": 600,
+                    "rotateY": 1200
+                }
+            }
+        },
+        "interactivity": {
+            "detect_on": "canvas",
+            "events": {
+                "onhover": {
+                    "enable": true,
+                    "mode": "repulse"
+                },
+                "onclick": {
+                    "enable": true,
+                    "mode": "push"
+                },
+                "resize": true
+            },
+            "modes": {
+                "grab": {
+                    "distance": 400,
+                    "line_linked": {
+                        "opacity": 1
+                    }
+                },
+                "bubble": {
+                    "distance": 400,
+                    "size": 40,
+                    "duration": 2,
+                    "opacity": 8,
+                    "speed": 3
+                },
+                "repulse": {
+                    "distance": 75
+                },
+                "push": {
+                    "particles_nb": 4
+                },
+                "remove": {
+                    "particles_nb": 2
+                }
+            }
+        },
+        "retina_detect": true
     });
 </script>
 

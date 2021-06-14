@@ -17,11 +17,24 @@
         content="The future in web development, today. Increase performance and drive more customers to your business with Gibbs Digital.">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Kulim+Park:wght@700&display=swap" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kulim+Park:wght@700&display=swap" media="print"
-        onload="this.media='all'" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kulim+Park:wght@700&display=swap"
+        media="print" onload="this.media='all'" />
     <noscript>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kulim+Park:wght@700&display=swap" />
     </noscript>
+    <!-- Global site tag (gtag.js) - Google Ads: 653358867 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-653358867"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'AW-653358867');
+    </script>
+
     <title>Gibbs Digital - The future in web development, today</title>
     <style>
         html {
@@ -157,10 +170,11 @@
     </div>
     <div class="center hidden-right" id="moreinfo">
         <div class="moreinfo-panel">
-            <form class="contact" name="contact" netlify>
+            <form class="contact" id="contact-form" name="contact" netlify>
                 <input type="text" required name="name" placeholder="Name" autocapitalize autocomplete="name" />
                 <input type="email" required name="email" placeholder="Email" autocapitalize autocomplete="email" />
-                <textarea name="message" required placeholder="What are you looking for?" style="width: 100%;" aria-label="Message"></textarea>
+                <textarea name="message" required placeholder="What are you looking for?" style="width: 100%;"
+                    aria-label="Message"></textarea>
                 <div style="text-align: right;">
                     <button type="submit">Send</button>
                 </div>
@@ -193,7 +207,7 @@
     const findout = document.getElementById("findout");
     const center = document.getElementById("center");
     const moreinfo = document.getElementById("moreinfo");
-
+    const contact = document.getElementById("contact-form");
     findout.addEventListener("click", (e) => {
         e.preventDefault();
 
@@ -201,6 +215,12 @@
 
         moreinfo.classList.remove("hidden-right");
     })
+
+    contact.addEventListener(("submit"), () => {
+        gtag('event', 'conversion', {
+            'send_to': 'AW-653358867/N22PCKGB9cECEJPuxbcC'
+        });
+    });
 
     let currentHeadline = 0;
     let i = 0;

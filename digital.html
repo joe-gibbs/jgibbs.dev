@@ -217,11 +217,12 @@
     })
 
     contact.addEventListener(("submit"), (e) => {        
-        e.target.preventDefault();
+        e.preventDefault();
 
         gtag('event', 'conversion', {
             'send_to': 'AW-653358867/N22PCKGB9cECEJPuxbcC',
             'event_callback': () => {
+                console.log("Sent conversion");
                 e.target.submit();
             }
         });

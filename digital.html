@@ -216,10 +216,16 @@
         moreinfo.classList.remove("hidden-right");
     })
 
-    contact.addEventListener(("submit"), () => {
+    contact.addEventListener(("submit"), (e) => {        
+        e.target.preventDefault();
+
         gtag('event', 'conversion', {
-            'send_to': 'AW-653358867/N22PCKGB9cECEJPuxbcC'
+            'send_to': 'AW-653358867/N22PCKGB9cECEJPuxbcC',
+            'event_callback': () => {
+                e.target.submit();
+            }
         });
+        return false;
     });
 
     let currentHeadline = 0;

@@ -176,7 +176,7 @@
                 <textarea name="message" required placeholder="What are you looking for?" style="width: 100%;"
                     aria-label="Message"></textarea>
                 <div style="text-align: right;">
-                    <button type="submit">Send</button>
+                    <button id="submitButton" type="submit">Send</button>
                 </div>
             </form>
             <div class="gd-info">
@@ -218,11 +218,14 @@
 
     contact.addEventListener(("submit"), (e) => {        
         e.preventDefault();
+        document.getElementById("submitButton").disabled = true;
 
         gtag('event', 'conversion', {
             'send_to': 'AW-653358867/N22PCKGB9cECEJPuxbcC',
             'event_callback': () => {
-                e.target.submit();
+                setTimeout(() => {
+                    e.target.submit();
+                }, 1000)
             }
         });
         return false;

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="preload"
+      href="/styles/bootstrap.css"
+      as="style"
+      onload='this.onload=null;this.rel="stylesheet"'
+    />
+    <noscript>
+      <link rel="stylesheet" href="/styles/bootstrap.css.css" />
+    </noscript>
+    <link rel="stylesheet" href="/styles/styles.css" />
+    <script defer src="/scripts/scripts.js"></script>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta
+      name="description"
+      content="Hi, I'm a software engineer. Check out some of my projects."
+    />
+    <title>Local LLM-powered NPCs with llama.cpp, Mistral7b and StyleTTS</title>
+  </head>
+
+  <body>
+    <div style="max-width: 720px" class="container">
+      <h3 class="section-heading">
+        Local LLM-powered NPCs with llama.cpp, Mistral7b and StyleTTS
+      </h3>
+      <hr />
+
+      <div style="display: flex; justify-content: space-between">
+
+        <a href="/index.html">Home</a>
+        <p style="margin-bottom: 0;">View the source code for this demo <a href="https://github.com/joe-gibbs/local-llms-ue5">here</a>.</p>
+
+      </div>
+      <hr />
+
+      <iframe
+        width="720"
+        height="315"
+        src="https://www.youtube.com/embed/y45RDrLvpaM?si=W8ZxV1CrIdGMKgog"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+      ></iframe>
+
+      <h4>Introduction</h4>
+
+      <p>
+        There has been a lot of hype regarding models like GPT4, Claude and
+        others. They're great, I use them a lot, but there are scenarios where
+        using them might not be the best option. For instance, if you're making
+        a game and want to have NPCs that can talk to the player dynamically,
+        you probably don't want to have to send the player's message to a
+        server, wait for a response, then send that response back to the player,
+        since that would introduce a lot of latency, require you to be beholden
+        to OpenAI or whoever (which can be a big deal if their servers go down
+        and no one can play your game). You've also got to think about the cost
+        of running the server, which can be a lot if you have a lot of players.
+        It can also make you prone to minimising the amount of LLM-based content
+        in your game, since you'll have to pay for every token, and this can add
+        up fast. In this post I'll be talking about how I used llama.cpp,
+        Mistral7b and StyleTTS to create a fully local LLM-powered NPC for
+        games.
+      </p>
+
+      <h4>What I used</h4>
+
+      <p>
+        I used llama.cpp, Mistral7b and StyleTTS, along with Unreal Engine 5 for
+        the rendering. I tried to implement llama.cpp as a DLL in Unreal but
+        ended up getting stuck, so what I ended up doing was building a horrible
+        hacky solution using a Node script. I used
+        <a href="https://twitter.com/realmrfakename">mrfakename's</a>
+        <a href="https://huggingface.co/spaces/styletts2/styletts2>"
+          >StyleTTS2 demo Docker image</a
+        >
+        for the voice, which I interacted with using the Gradio API interface
+        package. Ideally I wouldn't have to use a Docker image, but I couldn't
+        get the StyleTTS2 model to work on my computer natively.
+      </p>
+
+      <p>I'm running this on my home computer with the following specs:</p>
+
+      <ul>
+        <li>HDD: Samsung 980 PRO M.2 1TB</li>
+        <li>CPU: Intel Core i5 12600KF</li>
+        <li>Memory: 64GB DDR5</li>
+        <li>GPU: GeForce RTX 4070 12GB</li>
+      </ul>
+
+      <h4>How it works</h4>
+
+      <p>
+        The Node script is invoked using the FInteractiveProcess class in
+        Unreal. It passes the previous conversation history to the script as a
+        command line argument, and the script outputs each sentence of the NPC's
+        dialogue as a JSON object containing the text (for the subtitle) and the
+        location of the audio file for that line to the command line, which is
+        then parsed by Unreal into a struct.
+      </p>
+
+      <h4>Performance</h4>
+
+      <p>
+        The performance is surprisingly pretty good. There are some minor
+        stutters when it generates a new line, but it's not too bad. StyleTTS
+        also uses 14gb of RAM and the Llama server uses 3gb, so you'll need a
+        decent amount of RAM to run it. I'm sure there are ways to optimise it,
+        but I haven't looked into it yet. There isn't much of a hit to frames,
+        it easily gets a smooth 60fps.
+      </p>
+
+      <p>
+        The time to generate a new line is around 2-3 seconds, which is pretty
+        fine if you ask me. I think there could be some kind of animation that
+        plays while it's generating the line to make it feel less jarring, but I
+        don't think it's too bad as it is. If you used Whisper with it, you
+        could delay the speed at which the transcript of the player's voice
+        appears on screen while the response is being generated, which people
+        are more used to after using stuff like Siri.
+      </p>
+
+      <h4>Drawbacks</h4>
+
+      <p>
+        While it's faster, the main drawback is that the Mistral model I'm using
+        is less coherent than GPT3.5. It tends to go off on tangents and doesn't
+        stick to the facts - for instance in one of my tests it told the player
+        to go a few miles to the village it's supposed to currently be in. Also,
+        as seen in the model, it knows the player's name of John, which isn't
+        actually established within the conversation and it mentions Angers,
+        which isn't going to be the settlement's name for hundreds of years.
+      </p>
+
+      <p>
+        It's also not particularly grounded in the reality of what is and isn't
+        possible in the game world. For instance, as seen in the demo, the quest
+        about training the villagers is actually impossible, since there are no
+        game mechanics for anything. I think this could be fixed with a kind of
+        RAG approach (see conclusion).
+      </p>
+
+      <p>
+        StyleTTS also doesn't quite sound natural, it's still got a bit of a
+        robotic sound to it. It's also not very good at pronouncing words that
+        it doesn't know, or mispronounces them based on context.
+      </p>
+
+      <h4>Future improvements</h4>
+
+      <p>
+        This is a rough proof of concept, and there are a lot of things that can
+        be improved on if you actually wanted to use this in a game.
+      </p>
+      <ul>
+        <li>
+          The first thing I'd do is try to get llama.cpp working as a DLL in
+          Unreal. This would remove the need for the Node script, which would
+          make it a lot easier to distribute.
+        </li>
+
+        <li>
+          Mistral tends to go a bit off topic sometimes, so it would be good to
+          fine-tune it to match the setting of the game. For instance, you can't
+          seem to entirely force it out of anachronisms using a prompt, and it's
+          jarring to the player when your 12th century NPC happens to be able to
+          explain how use AWS.
+        </li>
+        <li>
+          It could also be good to finetune it to add emotion markers to the
+          text output. With StyleTTS you can pass voice cloning snippets, so by
+          having a VA read out a sample line with different emotions, you could
+          call it using that particular sample.
+        </li>
+        <li>
+          I'd also try to find out some way to get StyleTTS coupled more closely
+          with Unreal. I'm not sure how to do this but it would be great not to
+          be relying on specific Python versions, specific versions of Python
+          packages, etc.
+        </li>
+        <li>
+          StyleTTS probably also needs finetuning make it act more like a person
+          in a conversation rather than someone who's narrating a book. It does
+          also have a tendency to sound a bit more American than it should.
+          Also, the way that it does a line at a time causes it to read those
+          lines disjointedly, which can be fixed by reading the whole thing at
+          once, with the problem here being that this will cause it to take too
+          long when reading out a whole infodump.
+        </li>
+
+        <li>
+          I'd also try to find a way to make it so that the player can interrupt
+          the NPC while they're talking, and have the NPC respond to that. I
+          think this would be a really cool feature, and would make the NPC feel
+          a lot more alive.
+        </li>
+      </ul>
+      <p>
+        In terms of the demo, there are a bunch of other things that are
+        tangentially related that would also provide improvements, but aren't
+        really in the scope. For one, the NPC's mouth doesn't move when it's
+        talking, which is obviously bad. This could be done with something like
+        audio2face which I doubt would cause much of a performance hit. You
+        could also allow the LLM to control the NPC's body language, by having
+        it return JSON which includes an animation to play for that line. You
+        could also have the NPC's eyes track the player.
+      </p>
+
+      <h4>Conclusion</h4>
+
+      <p>
+        In the long term I have an idea of creating a kind of database that's
+        updated when the player begins a conversation. It would contain
+        information about the player, the NPC, the world, etc. and would be used
+        to keep it grounded. You would generate a big document with all the
+        player's quest history (that this NPC knows about), what's visible on
+        the player, the weather, the NPC's interactions with other NPCs, their
+        chat history with the player (including dates, times, etc. so it can
+        infer that the player is talking about something that happened a while
+        ago), etc. and then use a natural language query on that before passing
+        it to the LLM.
+      </p>
+    </div>
+    <div class="footer">
+      <hr />
+      <div class="container">
+        <p>
+          <a href="https://www.linkedin.com/in/joe-gibbs-513a03172/"
+            ><img src="/assets/linkedin.svg" alt="LinkedIn" /> LinkedIn</a
+          >
+        </p>
+        <p>
+          <a href="https://news.ycombinator.com/user?id=joegibbs"
+            ><img src="/assets/hacker-news.svg" alt="Hacker News" /> Hacker
+            News</a
+          >
+        </p>
+        <noscript
+          >You'll need to enable JavaScript to see the email, it's to prevent
+          bots from scraping it.</noscript
+        >
+        <p>
+          <a href="https://github.com/joe-gibbs"
+            ><img src="/assets/github.svg" alt="Github" /> Github</a
+          >
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

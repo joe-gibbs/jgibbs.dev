@@ -6,5 +6,8 @@ emailLink.addEventListener("click", function(e) {
     let domain = "jgibbs.dev";
     let user = "joe";
 
-    window.location = "mailto:" + user + "@" + domain;
+    //create new mailto link and click it
+    let mailto = document.createElement("a");
+    mailto.href = "mailto:" + user + "@" + domain;
+    mailto.click();
 })

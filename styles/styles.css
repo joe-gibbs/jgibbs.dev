@@ -1,3 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+:root {
+  --bg-color: #f8f9fa; /* Light gray background */
+  --text-color: #212529; /* Dark text */
+  --primary-color: #007bff; /* Bootstrap primary blue */
+  --heading-color: #343a40; /* Slightly darker for headings */
+  --white-color: #ffffff;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
 img {
     width: 100%;
 }
@@ -25,16 +42,60 @@ a > img {
 
 .footer {
     text-align: center;
+    padding: 2rem 0;
+    margin-top: 4rem;
+    background-color: #e9ecef;
+    border-top: 1px solid #dee2e6; /* Add border top instead of hr */
+}
+
+.footer p {
+    margin-bottom: 0.5rem;
+}
+
+.footer a {
+    color: var(--text-color);
+    text-decoration: none; /* Explicitly remove underline */
+    display: inline-flex; /* Align image and text */
+    align-items: center; /* Align image and text */
+    margin: 0 0.5rem; /* Space out footer links */
+}
+
+.footer a > img {
+    width: 18px; /* Slightly larger footer icons */
+    height: 18px;
+    margin-right: 0.5rem; /* Space between icon and text */
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.footer a:hover > img {
+    opacity: 1;
+}
+
+.footer .copyright {
+  font-size: 0.9rem;
+  color: #6c757d; /* Muted color */
+  margin-top: 1.5rem; /* Add space above copyright */
 }
 
 .section-heading {
     text-align: center;
-    font-size: 36pt;
+    font-size: 2.5rem;
+    color: var(--heading-color);
+    font-weight: 600;
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h1, h2, h3 {
+  font-weight: 600;
+  color: var(--heading-color);
 }
 
 #hi {
-    font-size: 48pt;
-    color: white;
+    font-size: 3.5rem;
+    color: var(--white-color);
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
 }
 
 a {
@@ -43,13 +104,9 @@ a {
 }
 
 a:hover {
-    opacity: 70%;
-    font-size: 120%;
+    opacity: 0.8;
 }
 
-.row {
-    margin-bottom: 3vh;
-}
 
 @media (min-width: 1400px)
 {
@@ -59,13 +116,16 @@ a:hover {
 }
 
 #intro-line2 {
-    color: white;
+    color: var(--white-color);
     opacity: 0.9;
+    font-size: 1.5rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    margin-bottom: 1.5rem; /* Add space below intro line */
 }
 
 .col-sm-2 {
     text-align: center;
-    margin-bottom: 2em;
+    /* margin-bottom: 2em; */ /* Remove bottom margin, card spacing handles it */
 }
 
 @media only screen and (min-width: 768px) {
@@ -75,7 +135,139 @@ a:hover {
 }
 
 #email {
-    padding: .875rem 7.5rem;
-    transition: 0.3s;
-    opacity: 0.9;
+    padding: .875rem 2.5rem;
+    transition: background-color 0.3s ease, border-color 0.3s ease, opacity 0.3s ease;
+    opacity: 1;
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
 }
+
+#email:hover {
+    background-color: #0056b3; /* Example darker blue */
+    border-color: #004085; /* Example darker blue border */
+    opacity: 1;
+}
+
+.parallax > .container {
+  padding: 2rem;
+}
+
+.card {
+  border: 1px solid #dee2e6; /* Subtle border */
+  background-color: var(--white-color);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+
+.card .row {
+  margin-bottom: 0; /* Remove margin from rows inside cards */
+}
+
+.card h3 {
+  margin-bottom: 0.5rem;
+}
+
+.card h3 a {
+  text-decoration: none;
+  color: var(--heading-color);
+}
+
+.card h3 a:hover {
+  color: var(--primary-color);
+  opacity: 1; /* Override general link hover opacity if needed */
+}
+
+.card ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 1rem;
+}
+
+.card ul li {
+  font-size: 0.9rem;
+  color: #6c757d; /* Muted color for dates/metadata */
+  margin-bottom: 0.25rem;
+}
+
+.project-icon.img-thumbnail {
+    max-width: 100px; /* Smaller icons might fit better in cards */
+    max-height: 100px;
+    border-radius: 0.25rem; /* Add slight rounding */
+    padding: 0.25rem; /* Bootstrap default padding */
+    background-color: #fff; /* Ensure bg is white */
+    border: 1px solid #dee2e6; /* Bootstrap default border */
+}
+
+/* --- Blog Post Styles --- */
+
+.blog-container {
+  max-width: 720px; /* Consistent max width for blog content */
+  margin: 2rem auto; /* Center the container with top/bottom margin */
+}
+
+.blog-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.blog-nav p {
+  margin-bottom: 0;
+}
+
+.blog-container .section-heading {
+  margin-top: 1rem; /* Less top margin for blog title */
+  font-size: 2.2rem; /* Slightly smaller title for blogs */
+}
+
+.blog-container hr {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.blog-container h2, /* For terrain blog */
+.blog-container h4 { /* For LLM blog */
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: var(--heading-color);
+}
+
+.blog-container p {
+  margin-bottom: 1rem;
+  line-height: 1.7; /* Slightly more line height for readability */
+}
+
+.blog-container ul {
+  margin-bottom: 1rem;
+  padding-left: 2rem; /* Indent bullet points */
+}
+
+.blog-container ul li {
+  margin-bottom: 0.5rem;
+}
+
+.blog-container img,
+.blog-container iframe {
+  max-width: 100%; /* Ensure images/iframes are responsive */
+  height: auto; /* Maintain aspect ratio */
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 0.25rem; /* Optional: slight rounding */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Optional: subtle shadow */
+}
+
+.blog-container iframe {
+  aspect-ratio: 16 / 9; /* Maintain aspect ratio for video */
+  width: 100%; /* Override inline width */
+  height: auto; /* Override inline height */
+}
+
+/* --- End Blog Post Styles --- */

@@ -1,0 +1,39 @@
+---
+export interface Props {
+  title: string;
+  href: string;
+  pubDate?: string | Date;
+  description?: string;
+}
+
+const { title, href, pubDate, description } = Astro.props as Props;
+
+const dateObject = pubDate ? new Date(pubDate) : undefined;
+const isoDate = dateObject ? dateObject.toISOString().split("T")[0] : undefined;
+const formattedDate = dateObject
+  ? dateObject.toLocaleDateString("en-AU", { day: "2-digit", month: "short", year: "numeric" })
+  : undefined;
+---
+<div class="card mb-4 blog-card">
+  <div class="card-body">
+    <h3 class="mb-1">
+      <a class="stretched-link" href={href}>{title}</a>
+    </h3>
+    {formattedDate && (
+      <div class="blogcard-meta">
+        <small class="text-muted">
+          <time datetime={isoDate}>{formattedDate}</time>
+        </small>
+      </div>
+    )}
+    {description && <p class="mb-0">{description}</p>}
+  </div>
+  
+  <style>
+    .blog-card :global(.stretched-link) {
+      text-decoration: none;
+    }
+  </style>
+</div>
+
+

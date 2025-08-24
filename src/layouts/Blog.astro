@@ -1,20 +1,36 @@
----
 import Base from "./Base.astro";
 
 export interface Props {
   title: string;
   description?: string;
+  pubDate?: string | Date;
 }
 
-const { title, description } = Astro.props as Props;
----
+const { title, description, pubDate } = Astro.props as Props;
+
+const dateObject = pubDate ? new Date(pubDate) : undefined;
+const isoDate = dateObject ? dateObject.toISOString().split("T")[0] : undefined;
+const formattedDate = dateObject
+  ? dateObject.toLocaleDateString("en-AU", { day: "2-digit", month: "short", year: "numeric" })
+  : undefined;
 <Base title={title} description={description}>
   <div class="container blog-container">
     <h3 class="section-heading">{title}</h3>
+    {formattedDate && (
+      <div class="blog-meta">
+        <small class="text-muted"><time datetime={isoDate}>{formattedDate}</time></small>
+      </div>
+    )}
     <hr />
     <slot name="nav" />
     <slot />
   </div>
 </Base>
+
+<style>
+  .blog-meta {
+    margin-top: -0.25rem;
+  }
+</style>
 
 

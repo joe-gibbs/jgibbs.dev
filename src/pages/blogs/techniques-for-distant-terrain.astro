@@ -2,10 +2,6 @@
 import Blog from "../../layouts/Blog.astro";
 ---
 <Blog title="Techniques for distant terrain" description="Techniques for distant terrain">
-  <div slot="nav" class="blog-nav">
-    <a href="/">Home</a>
-  </div>
-  <hr />
   <p>There's a lot of work that goes into making a good-looking landscape for a game. I've been working on Fall of an Empire for a while, and since the game uses an overworld similar to Total War, Civilization or Mount and Blade the map is made entirely of distant terrain. Here are the techniques I use to build the FOAE map. Although FOAE is a strategy game with an RTS-style camera, these techniques can also be used for anything that has a landscape in it.</p>
   <h2>Detail levels</h2>
   <p>When we look at an object from different distances we make out different levels of detail. For instance, looking at a wall from a distance it might look like a blank white box, if we get closer we can see scratches and damage and up close we can see the fine rough detail of the paint. This is the same for landscapes. Up close we can see individual pebbles, blades of grass and sticks. Further away we see variation in the types of grass, darker and lighter areas and even further away we can only see that macro-level variation.</p>

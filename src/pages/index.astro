@@ -29,6 +29,17 @@ const pageDescription = "Hi, I'm a software engineer. Check out some of my proje
     <title>{pageTitle}</title>
   </head>
   <body>
+    <header class="site-header">
+      <div class="container">
+        <a class="brand" href="/">Joe Gibbs</a>
+        <nav class="site-nav">
+          <a href="#career">Career</a>
+          <a href="#blog">Blog</a>
+          <a href="#projects">Projects</a>
+          <a href="#" class="email-link">Contact</a>
+        </nav>
+      </div>
+    </header>
     <div class="parallax">
       <div class="container">
         <h1 id="hi">Hi, I'm Joe Gibbs.</h1>
@@ -39,7 +50,7 @@ const pageDescription = "Hi, I'm a software engineer. Check out some of my proje
       </div>
     </div>
     <div class="container">
-      <h3 class="section-heading">Career</h3>
+      <h3 class="section-heading" id="career">Career</h3>
       <hr />
       <!-- Career cards -->
       <div class="card mb-4">
@@ -106,7 +117,7 @@ const pageDescription = "Hi, I'm a software engineer. Check out some of my proje
         </div>
       </div>
 
-      <h3 class="section-heading">Blog posts</h3>
+      <h3 class="section-heading" id="blog">Blog posts</h3>
       <hr />
 
       <div class="card mb-4">
@@ -114,7 +125,7 @@ const pageDescription = "Hi, I'm a software engineer. Check out some of my proje
           <div class="row">
             <div class="col-sm-12">
               <h3>
-                <a href="/blogs/thoughts-on-gpt-5.html"> Thoughts on GPT-5 </a>
+                <a href="/blogs/thoughts-on-gpt-5"> Thoughts on GPT-5 </a>
               </h3>
               <ul>
                 <li>12/08/2025</li>
@@ -135,7 +146,7 @@ const pageDescription = "Hi, I'm a software engineer. Check out some of my proje
           <div class="row">
             <div class="col-sm-12">
               <h3>
-                <a href="/blogs/local-llm-npcs-in-unreal-engine.html">
+                <a href="/blogs/local-llm-npcs-in-unreal-engine">
                   Local LLM-powered NPCs with llama.cpp, Mistral7b and StyleTTS2
                 </a>
               </h3>
@@ -165,7 +176,7 @@ const pageDescription = "Hi, I'm a software engineer. Check out some of my proje
           <div class="row">
             <div class="col-sm-12">
               <h3>
-                <a href="/blogs/techniques-for-distant-terrain.html">
+                <a href="/blogs/techniques-for-distant-terrain">
                   Techniques for distant terrain
                 </a>
               </h3>
@@ -187,7 +198,7 @@ const pageDescription = "Hi, I'm a software engineer. Check out some of my proje
         </div>
       </div>
 
-      <h3 class="section-heading">Projects</h3>
+      <h3 class="section-heading" id="projects">Projects</h3>
       <hr />
 
       <div class="card mb-4">

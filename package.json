@@ -1,0 +1,17 @@
+{
+  "name": "jgibbs.dev",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "devDependencies": {
+    "@rollup/rollup-win32-x64-msvc": "^4.48.0",
+    "astro": "^4.14.0",
+    "rollup": "^4.48.0"
+  }
+}

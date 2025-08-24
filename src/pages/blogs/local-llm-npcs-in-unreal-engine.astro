@@ -1,0 +1,108 @@
+---
+import Blog from "../../layouts/Blog.astro";
+---
+<Blog title="Local LLM-powered NPCs with llama.cpp, Mistral7b and StyleTTS2" description="Local LLM-powered NPCs with llama.cpp, Mistral7b and StyleTTS2">
+  <div slot="nav" class="blog-nav">
+    <a href="/">Home</a>
+    <p>
+      View the source code for this demo
+      <a href="https://github.com/joe-gibbs/local-llms-ue5">here</a>.
+    </p>
+  </div>
+  <hr />
+  <iframe
+    src="https://www.youtube.com/embed/y45RDrLvpaM?si=W8ZxV1CrIdGMKgog"
+    title="YouTube video player"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen
+  ></iframe>
+  <h4>Introduction</h4>
+  <p>
+    There has been a lot of hype regarding models like GPT4, Claude and others. They're great, I use them a lot, but there are scenarios where using them might not be the best option. For instance, if you're making a game and want to have NPCs that can talk to the player dynamically, you probably don't want to have to send the player's message to a server, wait for a response, then send that response back to the player, since that would introduce a lot of latency, require you to be beholden to OpenAI or whoever (which can be a big deal if their servers go down and no one can play your game). You've also got to think about the cost of using these models, which can be a shock if you aquire a lot of players and uneconomical if your game is cheap or played too much. It can also make you prone to minimising the amount of LLM-based content in your game, since you'll have to pay for every token, and this can add up fast.
+  </p>
+  <h4>What I used</h4>
+  <p>
+    I used llama.cpp with Mistral7b to generate the dialogue, and StyleTTS2 to generate voice lines, along with Unreal Engine 5 for the rendering. I tried to implement llama.cpp as a DLL in Unreal but ended up getting stuck, so what I ended up doing was building a horrible hacky solution using a Node script. I used
+    <a href="https://twitter.com/realmrfakename">mrfakename's</a>
+    <a href="https://huggingface.co/spaces/styletts2/styletts2>">StyleTTS2 demo Docker image</a>
+    for the voice, which I interacted with using the Gradio API interface package. Ideally I wouldn't have to use a Docker image, but I couldn't get the StyleTTS2 model to work on my computer natively.
+  </p>
+  <p>
+    I'm running this on my home PC on Windows 11 with the following specs:
+  </p>
+  <ul>
+    <li>HDD: Samsung 980 PRO M.2 1TB</li>
+    <li>CPU: Intel Core i5 12600KF</li>
+    <li>Memory: 64GB DDR5</li>
+    <li>GPU: GeForce RTX 4070 12GB</li>
+  </ul>
+  <h4>How it works</h4>
+  <p>
+    The Node script is invoked using the FInteractiveProcess class in Unreal. It passes the previous conversation history to the script as a command line argument, and the script outputs each sentence of the NPC's dialogue sequentially (so as to improve performance - rather than waiting for the whole thing to be done, we go line-by-line and generate/voice the next one as the NPC is saying the current line) as a JSON object containing the text (for the subtitle) and the location of the audio file for that line to the command line, which is then parsed by Unreal into a struct and then played.
+  </p>
+  <h4>Performance</h4>
+  <p>
+    The performance is surprisingly pretty good. There are some minor stutters when it generates a new line, but it's not too bad. StyleTTS2 also uses 14gb of RAM and the Llama server uses 3gb, so you'll need a decent amount of RAM to run it - I'm sure that it StyleTTS be optimised down though. There isn't much of a hit to frames, as you can see in the video it easily gets a smooth 60fps.
+  </p>
+  <p>
+    The time to generate a new line is around 2-3 seconds, which is pretty fine if you ask me. Maybe there could be some kind of animation that plays while it's generating the line to make it feel less jarring, but I don't think it's too bad as it is. If you used Whisper with it, you could delay the speed at which the transcript of the player's voice appears on screen while the response is being generated, which people are more used to after using stuff like Siri.
+  </p>
+  <h4>Drawbacks</h4>
+  <p>
+    While it's faster, the main drawback is that the Mistral model I'm using is less coherent than GPT3.5. It tends to go off on tangents and doesn't stick to the facts - for instance in one of my tests it told the player to go a few miles to the village it's supposed to currently be in. Also, as seen in the video, it knows the player's name of John, which isn't actually established within the conversation and it mentions Angers, which isn't going to be the settlement's name for hundreds of years.
+  </p>
+  <p>
+    It's also not particularly grounded in the reality of what is and isn't possible in the game world. For instance, as seen in the demo, the quest about training the villagers is actually impossible, since there are no game mechanics for anything. I think this could be fixed with a kind of RAG approach (see conclusion).
+  </p>
+  <p>
+    StyleTTS2 also doesn't quite sound natural, it's still got a bit of a robotic sound to it. It's also not very good at pronouncing words that it doesn't know, or mispronounces them based on context (the city of Angers is pronounced differently to the verb "to anger").
+  </p>
+  <h4>Future improvements</h4>
+  <p>
+    This is a rough proof of concept, and there are a lot of things that can be improved on if you actually wanted to use this in a game.
+  </p>
+  <ul>
+    <li>
+      The first thing I'd do is try to get llama.cpp working as a DLL in Unreal. This would remove the need for the Node script, which would make it a lot easier to distribute.
+    </li>
+    <li>
+      Mistral tends to go a bit off topic sometimes, so it would be good to fine-tune it to match the setting of the game. For instance, you can't seem to entirely force it out of anachronisms using a prompt, and it's jarring to the player when your 12th century NPC happens to be able to explain how use AWS.
+    </li>
+    <li>
+      It could also be good to finetune it to add emotion markers to the text output. With StyleTTS2 you can pass voice cloning snippets, so by having a VA read out a sample line with different emotions, you could call it using that particular sample. Currently, I only have one voice cloning sample, but in a fully-fledged game you would want to have a whole set for each emotion of each NPC.
+    </li>
+    <li>
+      I'd also try to find out some way to get StyleTTS2 coupled more closely with Unreal. I'm not sure how to do this but it would be great not to be relying on specific Python versions, specific versions of Python packages, etc.
+    </li>
+    <li>
+      StyleTTS2 probably also needs finetuning make it act more like a person in a conversation rather than someone who's narrating a book. It does also have a tendency to sound a bit more American than it should. Also, the way that it does a line at a time causes it to read those lines disjointedly, which can be fixed by reading the whole thing at once, with the problem here being that this will cause it to take longer when reading out a whole infodump.
+    </li>
+    <li>
+      Whisper would be a good integration - it would feel natural to be able to speak to the NPC and have it answer back, although I think that keeping an additional text field would be necessary for a few reasons (people who would feel awkward about it, avoiding disturbing family or roommates). Whisper.cpp is also very performant, and it shouldn't impact game performance any more because it's only going to run <em>before</em> the LLM/StyleTTS.
+    </li>
+    <li>
+      I'd also try to find a way to make it so that the player can interrupt the NPC while they're talking, and have the NPC respond to that. I think this would be a really cool feature, and would make the NPC feel a lot more alive.
+    </li>
+  </ul>
+  <p>
+    In terms of the demo, there are a bunch of other things that are tangentially related that would also provide improvements, but aren't really in the scope. For one, the NPC's mouth doesn't move when it's talking, which is obviously bad. This could be done with something like
+    <a href="https://www.nvidia.com/en-au/omniverse/apps/audio2face/">audio2face</a>
+    which I doubt would cause much of a performance hit. You could also allow the LLM to control the NPC's body language, by having it return JSON which includes an animation to play for that line.
+  </p>
+  <h4>Conclusion</h4>
+  <p>
+    In the long term I have an idea of creating a kind of database that's updated when the player begins a conversation. It would contain information about the player, the NPC (including their backstory and goals), the world, etc. and would be used to keep it grounded. You would generate a big document with all the player's quest history (that this NPC knows about), what's visible on the player, the weather, the NPC's interactions with other NPCs, their chat history with the player (including dates, times, etc. so it can infer that the player is talking about something that happened a while ago), etc. and then use a natural language query on that before passing it to the LLM.
+  </p>
+  <p>
+    Of course, it would still be best to have possible quests hand-crafted. I don't think we're at the point where we can let the LLM come up with entire quest series yet - you'd probably end up with something like Skyrim's radiant quests where it's just "go here and do this". They were definitely not a hit with players, and I think that's because they lacked that human touch.
+  </p>
+  <p>
+    The main thing to do would be to fine train the LLM to stay on track and refuse to do things it can't actually do. It could be passed a list of functions that it can can perform (give item, take item, start quest, etc.) and it would refuse to do anything else.
+  </p>
+  <p>
+    All of those fixes are what you would need to do to make it work in a full game, but the point of this post was to show that it's possible to do run a whole NPC locally, and that it's not too hard to do. I think the results are very positive, and I'm excited to see what other people with this.
+  </p>
+</Blog>
+
+

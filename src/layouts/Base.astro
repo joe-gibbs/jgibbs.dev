@@ -1,0 +1,61 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description } = Astro.props as Props;
+---
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="preload"
+      href="/styles/bootstrap.css"
+      as="style"
+      onload='this.onload=null;this.rel="stylesheet"'
+    />
+    <noscript>
+      <link rel="stylesheet" href="/styles/bootstrap.css" />
+    </noscript>
+    <link rel="stylesheet" href="/styles/styles.css" />
+    <script defer src="/scripts/scripts.js"></script>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="theme-color" content="#ffffff" />
+    {description && <meta name="description" content={description} />}
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+    <div class="footer">
+      <hr />
+      <div class="container">
+        <p>
+          <a href="https://www.linkedin.com/in/joe-gibbs-513a03172/"
+            ><img src="/assets/linkedin.svg" alt="LinkedIn" /> LinkedIn</a
+          >
+        </p>
+        <p>
+          <a href="https://news.ycombinator.com/user?id=joegibbs"
+            ><img src="/assets/hacker-news.svg" alt="Hacker News" /> Hacker
+            News</a
+          >
+        </p>
+        <noscript>You'll need to enable JavaScript to see the email, it's to prevent
+          bots from scraping it.</noscript>
+        <p>
+          <a href="https://github.com/joe-gibbs"
+            ><img src="/assets/github.svg" alt="Github" /> Github</a
+          >
+        </p>
+      </div>
+    </div>
+  </body>
+  </html>
+
+

@@ -1,0 +1,80 @@
+---
+import Blog from "../../layouts/Blog.astro";
+---
+<Blog title="Thoughts on GPT-5" description="Thoughts on GPT-5">
+  <div slot="nav" class="blog-nav">
+    <a href="/">Home</a>
+  </div>
+  <hr />
+  <h4>Not so good</h4>
+  <p>
+    I originally said that GPT-5 was 10% better than Claude Sonnet 4. After
+    using it with Cursor (gpt-5-fast) for a few days I've changed my mind,
+    it's 20-30% worse. Firstly, it needs way too much handholding. I tell it
+    to update a file with something and it will do half of it and then come
+    back to me and ask if it should continue. I tell it "CONTINUE! DO NOT
+    ASK ME ANY MORE QUESTIONS" and it will say "Absolutely! I am continuing
+    without asking you any more questions.". Then it does a little bit and
+    asks me whether it should continue again. I'm sure this is a good cost
+    saver but not very beneficial to me.
+  </p>
+  <p>
+    Another problem it has is insisting that it's done things that it hasn't
+    done yet. This is a problem that I haven't experienced with LLMs since
+    the GPT-3 era. I say "update the wording in files X, Y and Z" - it will
+    come back to me and say "I've successfully updated these three files and
+    confirmed there are no linter errors [etc, etc]". I check the git status
+    - no changes whatsoever! This seems to be a common issue and it's
+    incredibly annoying. It seems convinced it's changed them, even if I
+    tell it otherwise, so the solution is going back in the chat history and
+    getting it to retry from a point.
+  </p>
+  <p>
+    Odd word choices are another one that feels like a regression way back
+    to the past. A lot of the time I find that if I let it write something
+    (an alt text, etc) it will come up with clipped sentences, words that
+    don't make sense in the context, etc - maybe a side-effect of training
+    on synthetic data? It at least doesn't have that flowery 4o sloppy feel
+    to it but it doesn't feel like correct English - which is interesting
+    because it's, again, not something I feel very much with modern models
+    unless running a small quantised one locally, or at a high temperature.
+  </p>
+  <p>
+    I think that whatever they've done to make the model guess the user's
+    intent from the prompt is bad. When viewing the reasoning it will often
+    convince itself that I've asked it to do something else: it gives me an
+    option and says it can continue if I ask. I say "continue" and it
+    reasons into deciding that I really meant it should continue some other
+    totally different thing.
+  </p>
+  <p>
+    Speed is an issue: it takes a while to begin reasoning and then once
+    it's begun it takes another while to finish thinking. This isn't so bad
+    normally but when you add 30s + 30s + 30s... with the model doing tool
+    calls and thinking, it drags iteration time way down. The tokens/second
+    speed is also poor in comparison to Sonnet 4. I didn't find this as much
+    of an issue with the O series because it was much more effective at
+    finding solutions, so I was happy to let it think about harder problems
+    every now and then. But as a daily driver?
+  </p>
+  <p>
+    Coding quality doesn't feel that great either. It tends to just add and
+    add - I let it go for a little bit on React and when I checked back it
+    had written a 2800 line component that it took forever to handle, and
+    wasn't very good at understanding itself. It also seems more likely than
+    Claude to not fulfil all the user's instructions. I often give it a
+    prompt with a few different things and it will only do some, totally
+    giving up on the others until I prompt it again.
+  </p>
+  <p>
+    I have found it quite decent at writing SVGs and animations, so this
+    might be somewhere it really shines. However I don't really write that
+    many SVGs, and I do write a lot of code, so it's not that much of a boon
+    to me.
+  </p>
+  <p>
+    All in all, 5/10. Definitely not feeling the AGI on this one, and for my
+    next project I'll definitely be making Sonnet 4 the default model.
+  </p>
+</Blog>
+

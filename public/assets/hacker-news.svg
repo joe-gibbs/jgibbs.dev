@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+    <path d="M4 4v42h42V4H4zm40 40H6V6h38v38zM42 8H8v34h34V8zM27 28v8h-4v-8l-7-13h3.18L25 25.19 30.82 15H34l-7 13z" />
+    <metadata>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+            xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+            <rdf:Description about="https://iconscout.com/legal#licenses" dc:title="hacker,news,filled"
+                dc:description="hacker,news,filled" dc:publisher="Iconscout" dc:date="2017-12-09"
+                dc:format="image/svg+xml" dc:language="en">
+                <dc:creator>
+                    <rdf:Bag>
+                        <rdf:li>Icons8</rdf:li>
+                    </rdf:Bag>
+                </dc:creator>
+            </rdf:Description>
+        </rdf:RDF>
+    </metadata>
+</svg>

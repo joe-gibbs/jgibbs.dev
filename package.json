@@ -10,7 +10,6 @@
     "astro": "astro"
   },
   "devDependencies": {
-    "@rollup/rollup-win32-x64-msvc": "^4.48.0",
     "astro": "^4.14.0",
     "rollup": "^4.48.0"
   }

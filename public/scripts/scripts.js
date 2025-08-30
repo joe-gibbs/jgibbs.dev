@@ -1,28 +1,23 @@
-let emailLink = document.getElementById("email");
+document.addEventListener("DOMContentLoaded", function () {
+  const domain = "jgibbs.dev";
+  const user = "joe";
+  const mailtoHref = "mailto:" + user + "@" + domain;
 
-if (emailLink) {
-  emailLink.addEventListener("click", function (e) {
-    e.preventDefault();
+  const emailButton = document.getElementById("email");
+  if (emailButton) {
+    emailButton.setAttribute("href", mailtoHref);
+    emailButton.addEventListener("click", function (e) {
+      e.preventDefault();
+      window.location.href = mailtoHref;
+    });
+  }
 
-    let domain = "jgibbs.dev";
-    let user = "joe";
-
-    //create new mailto link and click it
-    let mailto = document.createElement("a");
-    mailto.href = "mailto:" + user + "@" + domain;
-    mailto.click();
-  });
-}
-
-// Also attach to header Contact link(s)
-const headerEmailLinks = document.querySelectorAll(".email-link");
-headerEmailLinks.forEach((link) => {
-  link.addEventListener("click", function (e) {
-    e.preventDefault();
-    let domain = "jgibbs.dev";
-    let user = "joe";
-    let mailto = document.createElement("a");
-    mailto.href = "mailto:" + user + "@" + domain;
-    mailto.click();
+  const headerEmailLinks = document.querySelectorAll(".email-link");
+  headerEmailLinks.forEach((link) => {
+    link.setAttribute("href", mailtoHref);
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+      window.location.href = mailtoHref;
+    });
   });
 });

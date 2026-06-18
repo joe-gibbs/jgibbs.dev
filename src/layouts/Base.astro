@@ -10,16 +10,6 @@ const { title, description } = Astro.props as Props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="preload"
-      href="/styles/bootstrap.css"
-      as="style"
-      onload='this.onload=null;this.rel="stylesheet"'
-    />
-    <noscript>
-      <link rel="stylesheet" href="/styles/bootstrap.css" />
-    </noscript>
-    <link rel="stylesheet" href="/styles/styles.css" />
     <script defer src="/scripts/scripts.js"></script>
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -31,42 +21,32 @@ const { title, description } = Astro.props as Props;
     <title>{title}</title>
   </head>
   <body>
-    <header class="site-header">
-      <div class="container">
-        <a class="brand" href="/">Joe Gibbs</a>
-        <nav class="site-nav">
-          <a href="/">Home</a>
-          <a href="/#career">Career</a>
-          <a href="/#blog">Blog</a>
-          <a href="/#projects">Projects</a>
-          <a href="#" class="email-link">Contact</a>
-        </nav>
-      </div>
+    <header>
+      <p><a href="/">Joe Gibbs</a></p>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/#career">Career</a>
+        <a href="/#blog">Blog</a>
+        <a href="/#projects">Projects</a>
+        <a href="#" data-email-link>Contact</a>
+      </nav>
+      <hr />
     </header>
     <slot />
-    <div class="footer">
+    <footer>
       <hr />
-      <div class="container">
-        <p>
-          <a href="https://www.linkedin.com/in/joe-gibbs-513a03172/"
-            ><img src="/assets/linkedin.svg" alt="LinkedIn" /> LinkedIn</a
-          >
-        </p>
-        <p>
-          <a href="https://news.ycombinator.com/user?id=joegibbs"
-            ><img src="/assets/hacker-news.svg" alt="Hacker News" /> Hacker
-            News</a
-          >
-        </p>
-        <noscript>You'll need to enable JavaScript to see the email, it's to prevent
-          bots from scraping it.</noscript>
-        <p>
-          <a href="https://github.com/joe-gibbs"
-            ><img src="/assets/github.svg" alt="Github" /> Github</a
-          >
-        </p>
-      </div>
-    </div>
+      <p>
+        <a href="https://www.linkedin.com/in/joe-gibbs-513a03172/">LinkedIn</a>
+      </p>
+      <p>
+        <a href="https://news.ycombinator.com/user?id=joegibbs">Hacker News</a>
+      </p>
+      <noscript>You'll need to enable JavaScript to see the email, it's to prevent
+        bots from scraping it.</noscript>
+      <p>
+        <a href="https://github.com/joe-gibbs">Github</a>
+      </p>
+    </footer>
   </body>
   </html>
 

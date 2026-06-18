@@ -1,319 +1,819 @@
 ---
-// Astro page generated from existing static index.html
-import BlogCard from "../components/BlogCard.astro";
-const pageTitle = "Joe Gibbs - Software Engineer";
-const pageDescription = "Hi, I'm a software engineer. Check out some of my projects.";
+const pageTitle = "Joe Gibbs — Software Engineer";
+const pageDescription = "Joe Gibbs, software engineer.";
 ---
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="preload"
-      href="/styles/bootstrap.css"
-      as="style"
-      onload='this.onload=null;this.rel="stylesheet"'
-    />
-    <noscript>
-      <link rel="stylesheet" href="/styles/bootstrap.css" />
-    </noscript>
-    <link rel="stylesheet" href="/styles/styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
     <script defer src="/scripts/scripts.js"></script>
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <meta name="msapplication-TileColor" content="#da532c" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="msapplication-TileColor" content="#06070b" />
+    <meta name="theme-color" content="#06070b" />
     <meta name="description" content={pageDescription} />
+    <meta name="color-scheme" content="dark" />
     <title>{pageTitle}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <header class="site-header">
-      <div class="container">
-        <a class="brand" href="/">Joe Gibbs</a>
-        <nav class="site-nav">
-          <a href="#career">Career</a>
-          <a href="#blog">Blog</a>
-          <a href="#projects">Projects</a>
-          <a href="#" class="email-link">Contact</a>
+    <div id="app">
+      <video id="horse-bg" autoplay muted loop playsinline aria-hidden="true">
+        <source src="/assets/horse-in-motion.webm" type="video/webm" />
+      </video>
+      <canvas id="horse-fx" aria-hidden="true"></canvas>
+      <canvas id="webgl" aria-hidden="true"></canvas>
+      <div id="grain" aria-hidden="true"></div>
+      <div id="vignette" aria-hidden="true"></div>
+      <canvas id="horse-bones" aria-hidden="true"></canvas>
+
+      <!-- top bar -->
+      <header class="bar bar-top">
+        <nav class="site-menu" aria-label="Site links">
+          <a href="/" class="mark" aria-label="Joe Gibbs — home">
+            <span class="mark-glyph">JG</span>
+            <span class="mark-text">jgibbs.dev</span>
+          </a>
+          <div class="site-dropdown">
+            <a href="#" data-email-link>Contact</a>
+            <a href="https://heypressto.ai">Pressto</a>
+            <a href="https://sen.com.au">SEN</a>
+            <a href="https://grouptag.cool">Grouptag</a>
+            <a href="/blogs/thoughts-on-gpt-5">Thoughts on GPT-5</a>
+            <a href="/blogs/local-llm-npcs-in-unreal-engine">Local LLM NPCs</a>
+            <a href="/blogs/techniques-for-distant-terrain">Distant Terrain</a>
+            <a href="https://github.com/joe-gibbs/wiki-simulator">Wiki Simulator</a>
+            <a href="https://www.youtube.com/channel/UCn01Em4a29wbsSSyaT0tI4Q">Channel 784</a>
+            <a href="https://fallofanempiregame.com">Fall of an Empire</a>
+            <a href="https://redland.jgibbs.dev">Redland</a>
+            <a href="https://drive.google.com/uc?export=download&id=1SHCEnrNVDQxR1m7ocVcSVzC0bPZi6OXs">Forlorn Desert</a>
+            <a href="https://github.com/joe-gibbs">GitHub</a>
+            <a href="https://www.linkedin.com/in/joe-gibbs-513a03172/">LinkedIn</a>
+          </div>
         </nav>
+        <nav class="bar-nav">
+          <a href="#" data-email-link class="link-quiet">Contact</a>
+        </nav>
+      </header>
+
+      <!-- hero (editorial, lower-left) -->
+      <section class="hero" aria-label="Introduction">
+        <h1 class="name">Joe Gibbs</h1>
+        <p class="role">Software engineer.</p>
+      </section>
+
+      <!-- socials + copyright, bottom-center -->
+      <footer class="bar bar-bottom">
+        <div class="socials">
+          <a href="https://github.com/joe-gibbs" class="link-quiet">GitHub</a>
+          <a href="https://www.linkedin.com/in/joe-gibbs-513a03172/" class="link-quiet">LinkedIn</a>
+        </div>
+        <small class="copy">&copy; <span id="copyright-year">2026</span> Joe Gibbs</small>
+      </footer>
+
+      <!-- projected tooltip -->
+      <div id="tooltip" class="tooltip" aria-hidden="true">
+        <span class="tt-kind"></span>
+        <span class="tt-title"></span>
+        <span class="tt-year"></span>
+        <span class="tt-desc"></span>
+        <span class="tt-go">open ↗</span>
       </div>
-    </header>
-    <div class="parallax">
-      <div class="container">
-        <h1 id="hi">Hi, I'm Joe Gibbs.</h1>
-        <h2 id="intro-line2">
-          I'm a software engineer. Check out some of my projects below.
-        </h2>
-        <p><a class="btn btn-primary" href="#" id="email">Contact me</a></p>
-      </div>
-    </div>
-    <div class="container">
-      <h3 class="section-heading" id="career">Career</h3>
-      <hr />
-      <!-- Career cards -->
-      <div class="card mb-4">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-sm-2">
-              <img class="project-icon img-thumbnail" src="/assets/yaarn.png" alt="Yaarn" />
-            </div>
-            <div class="col-sm-10">
-              <h3 id="sen"><a href="https://yaarn.ai">Yaarn</a></h3>
-              <ul>
-                <li>2022 —</li>
-              </ul>
-              <p>
-                Starting in 2022 I have been working on Yaarn, an AI-powered
-                public relations management platform.
-              </p>
-            </div>
-          </div>
+
+      <!-- custom cursor reticle -->
+      <div id="reticle" class="reticle" aria-hidden="true"></div>
+
+      <!-- detail panel (for nodes without a link) -->
+      <div id="detail" class="detail" aria-hidden="true">
+        <div class="detail-card" role="dialog" aria-modal="true" aria-labelledby="detail-title">
+          <button class="detail-close" type="button" aria-label="Close">&times;</button>
+          <span class="detail-kind"></span>
+          <h2 id="detail-title" class="detail-title"></h2>
+          <p class="detail-year"></p>
+          <p class="detail-desc"></p>
         </div>
       </div>
 
-      <div class="card mb-4">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-sm-2">
-              <img class="project-icon img-thumbnail" src="/assets/sen.png" alt="SEN" />
-            </div>
-            <div class="col-sm-10">
-              <h3 class="career-title sen-item">
-                <a href="https://sen.com.au">SEN</a>
-              </h3>
-              <ul>
-                <li>2021 — 2022</li>
-              </ul>
-              <p>
-                From 2021 I worked at SEN, working on internal software such as
-                scheduling systems.
-              </p>
-            </div>
-          </div>
-        </div>
+      <!-- loading veil -->
+      <div id="veil" class="veil" aria-hidden="true">
+        <span class="veil-text"></span>
       </div>
 
-      <div class="card mb-4">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-sm-2">
-              <img class="project-icon img-thumbnail" src="/assets/grouptag.png" alt="Grouptag" />
-            </div>
-            <div class="col-sm-10">
-              <h3 id="grouptag"><a href="https://grouptag.cool">Grouptag</a></h3>
-              <ul>
-                <li>2020 — 2021</li>
-              </ul>
-              <p>
-                I cofounded Grouptag in 2020. My goal with it was to improve the
-                way that Gen Zs can network together through an online platform
-                that connects people together based on their skills, goals and
-                interests.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <!-- no-WebGL / no-JS fallback: every link stays crawlable -->
+      <noscript>
+        <style>
+          #fallback { display: block !important; }
+          #app > :not(#fallback) { display: none !important; }
+          body { overflow: auto !important; }
+        </style>
+      </noscript>
+      <div id="fallback">
+        <div class="fb-wrap">
+          <h1>Joe Gibbs</h1>
+          <p>Software engineer.</p>
+          <noscript><p><a href="#" data-email-link>Contact</a></p></noscript>
 
-      <h3 class="section-heading" id="blog">Blog posts</h3>
-      <hr />
+          <h2>Career</h2>
+          <ul>
+            <li><a href="https://heypressto.ai">Pressto</a> — 2022– — AI-powered public relations platform.</li>
+            <li><a href="https://sen.com.au">SEN</a> — 2021–2022 — Internal software & scheduling systems.</li>
+            <li><a href="https://grouptag.cool">Grouptag</a> — 2020–2021 — Networking for Gen Z.</li>
+          </ul>
 
-      <BlogCard
-        title="Thoughts on GPT-5"
-        href="/blogs/thoughts-on-gpt-5"
-        pubDate="2025-08-12"
-        description="Initial impressions of GPT-5 after a few days of use."
-      />
+          <h2>Writing</h2>
+          <ul>
+            <li><a href="/blogs/thoughts-on-gpt-5">Thoughts on GPT-5</a> — 12 Aug 2025</li>
+            <li><a href="/blogs/local-llm-npcs-in-unreal-engine">Local LLM-powered NPCs</a> — 23 Dec 2023</li>
+            <li><a href="/blogs/techniques-for-distant-terrain">Techniques for distant terrain</a> — 27 Aug 2023</li>
+          </ul>
 
-      <BlogCard
-        title="Local LLM-powered NPCs with llama.cpp, Mistral7b and StyleTTS2"
-        href="/blogs/local-llm-npcs-in-unreal-engine"
-        pubDate="2023-12-23"
-        description="Running conversational NPCs entirely locally with Unreal Engine."
-      />
+          <h2>Projects</h2>
+          <ul>
+            <li><a href="https://github.com/joe-gibbs/wiki-simulator">Wiki Simulator</a> — 2025</li>
+            <li><a href="https://www.youtube.com/channel/UCn01Em4a29wbsSSyaT0tI4Q">Channel 784</a> — 2023</li>
+            <li><a href="https://fallofanempiregame.com">Fall of an Empire</a> — 2020–</li>
+            <li><a href="https://redland.jgibbs.dev">Redland</a> — 2020</li>
+            <li><a href="https://drive.google.com/uc?export=download&id=1SHCEnrNVDQxR1m7ocVcSVzC0bPZi6OXs">Forlorn Desert</a> — 2019</li>
+            <li>Orderall — 2018–2019 — Orders for small restaurants.</li>
+          </ul>
 
-      <BlogCard
-        title="Techniques for distant terrain"
-        href="/blogs/techniques-for-distant-terrain"
-        pubDate="2023-08-27"
-        description="Notes on building convincing far terrain for strategy-style worlds."
-      />
-
-      <h3 class="section-heading" id="projects">Projects</h3>
-      <hr />
-
-      <div class="card mb-4">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-sm-2"></div>
-            <div class="col-sm-10">
-              <h3 id="wikisim">Wiki Simulator</h3>
-              <ul>
-                <li>2025</li>
-              </ul>
-              <p>
-                Wiki Simulator is a demo I created to test out alternative
-                interfaces for LLM-generated content. Any route uses Llama 3.2
-                7B on Groq to generate a new wiki article on the fly, and Flux
-                Dev to generate assets for image routes.
-                <a href="https://wikisim.jgibbs.dev">Check it out here</a>.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card mb-4">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-sm-2">
-              <img class="project-icon img-thumbnail" src="/assets/channel784.png" alt="Channel 784" />
-            </div>
-            <div class="col-sm-10">
-              <h3 id="channel784">Channel 784</h3>
-              <ul>
-                <li>2023</li>
-              </ul>
-              <p>
-                Channel 784 is an AI-generated news parody. Using Unreal Engine
-                and GPT3, it generates scripts for a fake news program, voices
-                and animates them, with debates, weather and graphics for each
-                segment. You can
-                <a href="https://www.youtube.com/channel/UCn01Em4a29wbsSSyaT0tI4Q">view some of its episodes here</a>.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card mb-4">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-sm-2">
-              <img class="project-icon img-thumbnail" src="/assets/foae.png" alt="Fall of an Empire" />
-            </div>
-            <div class="col-sm-10">
-              <h3 id="fall-of-an-empire">Fall of an Empire</h3>
-              <ul>
-                <li>2020 —</li>
-              </ul>
-              <p>
-                Fall of an Empire is an Unreal Engine strategy game. The player
-                must balance the needs of their empire's provinces while also
-                fighting off barbarians who want to take your cities. You can
-                <a href="https://fallofanempiregame.com">read more about it here</a>.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card mb-4">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-sm-2">
-              <img class="project-icon img-thumbnail" src="/assets/redland.png" alt="Redland" />
-            </div>
-            <div class="col-sm-10">
-              <h3 id="redland">Redland</h3>
-              <ul>
-                <li>2020</li>
-              </ul>
-              <p>
-                Redland is a procedurally-generated, browser-based HTML Canvas
-                game about gathering resources, building equipment and
-                discovering pieces of a map to find treasure. I developed it
-                with my colleague Samuel and you can
-                <a href="https://redland.jgibbs.dev">play it here</a>.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card mb-4">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-sm-2">
-              <img class="project-icon img-thumbnail" src="/assets/desert.png" alt="Forlorn Desert" />
-            </div>
-            <div class="col-sm-10">
-              <h3 id="desert">Forlorn Desert</h3>
-              <ul>
-                <li>2019</li>
-              </ul>
-              <p>
-                Forlorn Desert is a minimal walking simulator game developed in
-                Unreal Engine 4. The player begins on a collapsed bridge in the
-                desert and must discover what is inside the bunker they find
-                behind them. You can
-                <a href="https://drive.google.com/uc?export=download&id=1SHCEnrNVDQxR1m7ocVcSVzC0bPZi6OXs">download it here</a>
-                for Windows.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card mb-4">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-sm-2">
-              <img class="project-icon img-thumbnail" src="/assets/orderall.png" alt="Orderall" />
-            </div>
-            <div class="col-sm-10">
-              <h3 id="orderall">Orderall</h3>
-              <ul>
-                <li>2018 — 2019</li>
-              </ul>
-              <p>
-                I founded Orderall to find a way for smaller restaurants to
-                compete when so much food is purchased through platforms like
-                Uber Eats and DoorDash. Orderall was a way for users to make
-                orders by a simple web interface, and for businesses to take
-                those orders via landline phone calls, bypassing the need for
-                expensive equipment and high fees that cut into already thin
-                margins.
-              </p>
-            </div>
-          </div>
+          <p>
+            <a href="https://github.com/joe-gibbs">GitHub</a> ·
+            <a href="https://www.linkedin.com/in/joe-gibbs-513a03172/">LinkedIn</a> ·
+          </p>
+          <p><small>&copy; 2026 Joe Gibbs</small></p>
         </div>
       </div>
     </div>
-    <div class="footer">
-      <div class="container">
-        <p>
-          <a href="https://www.linkedin.com/in/joe-gibbs-513a03172/"
-            ><img src="/assets/linkedin.svg" alt="LinkedIn" /> LinkedIn</a
-          >
-        </p>
-        <p>
-          <a href="https://news.ycombinator.com/user?id=joegibbs"
-            ><img src="/assets/hacker-news.svg" alt="Hacker News" /> Hacker
-            News</a
-          >
-        </p>
-        <noscript>You'll need to enable JavaScript to see the email, it's to prevent
-          bots from scraping it.</noscript>
-        <p>
-          <a href="https://github.com/joe-gibbs"
-            ><img src="/assets/github.svg" alt="Github" /> Github</a
-          >
-        </p>
-        <p class="copyright">
-          &copy; <span id="copyright-year"></span> Joe Gibbs. All rights
-          reserved.
-        </p>
-      </div>
-    </div>
+
+    <style is:global>
+      :root {
+        --void: #06070b;
+        --void-2: #0a0c12;
+        --parchment: #ece6d6;
+        --parchment-dim: #a8a293;
+        --muted: #6f6a59;
+        --career: #d8a44e;
+        --blog: #74b3b0;
+        --project: #cf8aa0;
+        --line: rgba(255, 255, 255, 0.24);
+        --glass: rgba(244, 249, 255, 0.11);
+        --glass-strong: rgba(244, 249, 255, 0.18);
+        --glass-edge: rgba(255, 255, 255, 0.42);
+        --display: "Archivo Black", Impact, "Arial Black", sans-serif;
+        --mono: "Space Mono", "Courier New", monospace;
+      }
+
+      * { box-sizing: border-box; }
+
+      html, body {
+        margin: 0;
+        height: 100%;
+        background: var(--void);
+        color: var(--parchment);
+        font-family: var(--mono);
+        font-weight: 700;
+        overflow: hidden;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+      }
+
+      body { cursor: none; }
+      body.no-custom-cursor { cursor: auto; }
+
+      a { color: inherit; text-decoration: none; }
+
+      #app {
+        position: fixed;
+        inset: 0;
+        overflow: hidden;
+      }
+
+      #webgl {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        display: block;
+        touch-action: none;
+        z-index: 3;
+      }
+
+      #horse-bg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      #horse-fx {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.42;
+        mix-blend-mode: screen;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      #horse-bones {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        display: block;
+        opacity: 1;
+        pointer-events: none;
+        z-index: 2;
+      }
+
+      /* film grain */
+      #grain {
+        position: absolute;
+        inset: -50%;
+        pointer-events: none;
+        opacity: 0.05;
+        mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+        animation: grain 6s steps(6) infinite;
+        z-index: 4;
+      }
+      @keyframes grain {
+        0% { transform: translate(0, 0); }
+        20% { transform: translate(-3%, 2%); }
+        40% { transform: translate(2%, -3%); }
+        60% { transform: translate(-2%, -2%); }
+        80% { transform: translate(3%, 1%); }
+        100% { transform: translate(0, 0); }
+      }
+
+      /* vignette + legibility gradients */
+      #vignette {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 3;
+        background:
+          radial-gradient(120% 90% at 50% 45%, transparent 45%, rgba(6, 7, 11, 0.55) 100%),
+          linear-gradient(to bottom, rgba(6, 7, 11, 0.55) 0%, transparent 18%, transparent 82%, rgba(6, 7, 11, 0.6) 100%);
+      }
+
+      /* ---- overlay chrome ---- */
+      .bar, .hero, .tooltip, #veil {
+        position: absolute;
+        z-index: 6;
+      }
+
+      .bar-top {
+        top: clamp(14px, 2.4vw, 28px);
+        left: clamp(14px, 2.4vw, 32px);
+        right: clamp(14px, 2.4vw, 32px);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px;
+      }
+      .site-menu {
+        position: relative;
+        display: inline-flex;
+        align-items: flex-start;
+        z-index: 8;
+      }
+      .mark {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        font-family: var(--mono);
+        letter-spacing: 0;
+        padding: 10px 12px;
+        background:
+          linear-gradient(135deg, rgba(255,255,255,0.24), rgba(255,255,255,0.04)),
+          var(--glass);
+        border: 2px solid var(--glass-edge);
+        border-radius: 8px;
+        box-shadow:
+          inset 0 1px 0 rgba(255,255,255,0.56),
+          inset 0 -18px 36px rgba(255,255,255,0.05),
+          0 18px 48px rgba(0,0,0,0.34);
+        backdrop-filter: blur(18px) saturate(1.35);
+      }
+      .mark::after {
+        content: "menu";
+        font-family: var(--mono);
+        font-size: 0.62rem;
+        color: var(--career);
+        text-transform: uppercase;
+      }
+      .mark-glyph {
+        font-family: var(--display);
+        font-weight: 900;
+        font-size: 1rem;
+        color: var(--parchment);
+        border: 2px solid rgba(255,255,255,0.62);
+        padding: 2px 8px;
+        border-radius: 0;
+        background: rgba(255,255,255,0.14);
+      }
+      .mark-text {
+        font-size: 0.82rem;
+        color: var(--parchment);
+        text-transform: uppercase;
+      }
+      .site-dropdown {
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 0;
+        min-width: 280px;
+        display: grid;
+        gap: 2px;
+        padding: 10px;
+        border: 2px solid var(--glass-edge);
+        border-radius: 8px;
+        background:
+          linear-gradient(135deg, rgba(255,255,255,0.24), rgba(255,255,255,0.04)),
+          rgba(8, 10, 16, 0.74);
+        backdrop-filter: blur(22px) saturate(1.35);
+        box-shadow:
+          inset 0 1px 0 rgba(255,255,255,0.5),
+          0 22px 58px rgba(0,0,0,0.48);
+        opacity: 0;
+        transform: translateY(-6px);
+        pointer-events: none;
+        transition: opacity 0.18s ease, transform 0.18s ease;
+      }
+      .site-menu:hover .site-dropdown,
+      .site-menu:focus-within .site-dropdown {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+      .site-dropdown a {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 34px;
+        padding: 7px 9px;
+        border-radius: 4px;
+        color: var(--parchment);
+        font-family: var(--mono);
+        font-size: 0.76rem;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+      .site-dropdown a::after {
+        content: "↗";
+        color: var(--career);
+      }
+      .site-dropdown a[href^="/"]::after,
+      .site-dropdown a[href="#"]::after {
+        content: "→";
+      }
+      .site-dropdown a:hover,
+      .site-dropdown a:focus-visible {
+        background: rgba(216, 164, 78, 0.18);
+        outline: none;
+      }
+      .bar-nav { display: flex; gap: 1.4rem; }
+      .link-quiet {
+        font-family: var(--mono);
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 0;
+        color: var(--parchment);
+        position: relative;
+        text-transform: uppercase;
+        transition: color 0.25s ease;
+      }
+      .link-quiet::after {
+        content: "";
+        position: absolute;
+        left: 0; bottom: -3px;
+        width: 0; height: 1px;
+        background: var(--career);
+        transition: width 0.28s ease;
+      }
+      .link-quiet:hover { color: var(--parchment); }
+      .link-quiet:hover::after { width: 100%; }
+
+      .hero {
+        left: clamp(18px, 3vw, 46px);
+        bottom: clamp(58px, 8vh, 96px);
+        max-width: min(680px, 80vw);
+        pointer-events: none;
+      }
+      .name {
+        margin: 0;
+        font-family: var(--display);
+        font-weight: 900;
+        font-size: clamp(4.25rem, 8rem, 8rem);
+        line-height: 0.9;
+        letter-spacing: 0;
+        text-transform: uppercase;
+        color: var(--parchment);
+        text-shadow: 0 4px 0 rgba(0,0,0,0.72), 0 0 34px rgba(255,255,255,0.12);
+        opacity: 0;
+        animation: rise 1.2s 0.35s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+      }
+      .role {
+        margin: 0.5em 0 0;
+        font-family: var(--mono);
+        font-size: 1rem;
+        letter-spacing: 0;
+        text-transform: uppercase;
+        color: var(--parchment-dim);
+        opacity: 0;
+        animation: rise 1s 0.7s ease forwards;
+      }
+      @keyframes rise {
+        from { opacity: 0; transform: translateY(14px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      .bar-bottom {
+        left: 0; right: 0;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: clamp(1rem, 3vw, 2.4rem);
+        width: fit-content;
+        margin: 0 auto 18px;
+        padding: 12px 16px;
+        border: 2px solid var(--glass-edge);
+        border-radius: 8px;
+        background:
+          linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.04)),
+          var(--glass);
+        backdrop-filter: blur(18px) saturate(1.35);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 18px 48px rgba(0,0,0,0.34);
+        opacity: 0;
+        animation: rise 1s 1.2s ease forwards;
+      }
+      .socials { display: flex; gap: clamp(1rem, 3vw, 2.4rem); }
+      .copy {
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        letter-spacing: 0;
+        color: var(--parchment-dim);
+        text-transform: uppercase;
+      }
+
+      /* ---- tooltip ---- */
+      .tooltip {
+        top: 0; left: 0;
+        transform: translate(-50%, calc(-100% - 22px));
+        pointer-events: none;
+        padding: 12px 15px 13px;
+        min-width: 180px;
+        max-width: 280px;
+        background:
+          linear-gradient(135deg, rgba(255,255,255,0.24), rgba(255,255,255,0.05)),
+          rgba(8, 10, 16, 0.58);
+        border: 2px solid var(--glass-edge);
+        border-radius: 8px;
+        backdrop-filter: blur(18px) saturate(1.35);
+        opacity: 0;
+        transition: opacity 0.18s ease;
+        z-index: 7;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 18px 50px rgba(0, 0, 0, 0.55);
+      }
+      .tooltip.is-visible { opacity: 1; }
+      .tooltip::after {
+        content: "";
+        position: absolute;
+        left: 50%; bottom: -6px;
+        width: 10px; height: 10px;
+        background: rgba(244,249,255,0.12);
+        border-right: 2px solid var(--glass-edge);
+        border-bottom: 2px solid var(--glass-edge);
+        transform: translateX(-50%) rotate(45deg);
+      }
+      .tt-kind {
+        display: inline-block;
+        font-size: 0.6rem;
+        letter-spacing: 0;
+        text-transform: uppercase;
+        margin-bottom: 0.5em;
+      }
+      .tt-title {
+        display: block;
+        font-family: var(--display);
+        font-weight: 900;
+        font-size: 1.2rem;
+        line-height: 1.15;
+        letter-spacing: 0;
+        text-transform: uppercase;
+        color: var(--parchment);
+      }
+      .tt-year {
+        display: block;
+        font-size: 0.66rem;
+        letter-spacing: 0;
+        color: var(--muted);
+        margin: 0.3em 0 0.6em;
+      }
+      .tt-desc {
+        display: block;
+        font-size: 0.74rem;
+        line-height: 1.45;
+        color: var(--parchment-dim);
+      }
+      .tt-go {
+        display: block;
+        margin-top: 0.7em;
+        font-size: 0.62rem;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      /* ---- custom cursor ---- */
+      .reticle {
+        position: absolute;
+        top: 0; left: 0;
+        width: 26px; height: 26px;
+        border: 1px solid rgba(236, 230, 214, 0.45);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9;
+        mix-blend-mode: difference;
+        transform: translate(-50%, -50%) scale(1);
+        transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease, background 0.2s ease, transform 0.12s ease;
+      }
+      .reticle.is-hot {
+        width: 52px; height: 52px;
+        border-color: rgba(236, 230, 214, 0.9);
+        background: rgba(216, 164, 78, 0.08);
+      }
+      .reticle.is-down { transform: translate(-50%, -50%) scale(0.82); }
+      @media (hover: none) {
+        .reticle { display: none; }
+        body { cursor: auto; }
+      }
+
+      /* ---- detail modal ---- */
+      .detail {
+        position: absolute;
+        inset: 0;
+        z-index: 12;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        background: rgba(6, 7, 11, 0.72);
+        backdrop-filter: blur(8px);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s ease;
+      }
+      .detail.is-open { opacity: 1; pointer-events: auto; }
+      .detail-card {
+        position: relative;
+        width: min(520px, 92vw);
+        padding: 34px 32px 30px;
+        background:
+          linear-gradient(135deg, rgba(255,255,255,0.24), rgba(255,255,255,0.04)),
+          rgba(8, 10, 16, 0.68);
+        border: 2px solid var(--glass-edge);
+        border-radius: 8px;
+        backdrop-filter: blur(22px) saturate(1.4);
+        transform: translateY(12px) scale(0.98);
+        transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.54), 0 40px 90px rgba(0, 0, 0, 0.6);
+      }
+      .detail.is-open .detail-card { transform: translateY(0) scale(1); }
+      .detail-close {
+        position: absolute;
+        top: 14px; right: 16px;
+        background: none;
+        border: none;
+        color: var(--parchment-dim);
+        font-size: 1.5rem;
+        line-height: 1;
+        cursor: pointer;
+        transition: color 0.2s ease;
+      }
+      .detail-close:hover { color: var(--parchment); }
+      .detail-kind {
+        display: inline-block;
+        font-size: 0.62rem;
+        letter-spacing: 0;
+        text-transform: uppercase;
+        margin-bottom: 0.7em;
+      }
+      .detail-title {
+        margin: 0;
+        font-family: var(--display);
+        font-weight: 900;
+        font-size: 2rem;
+        line-height: 1.05;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+      .detail-year {
+        margin: 0.4em 0 1em;
+        font-size: 0.72rem;
+        letter-spacing: 0;
+        color: var(--muted);
+      }
+      .detail-desc {
+        margin: 0;
+        font-size: 0.9rem;
+        line-height: 1.6;
+        color: var(--parchment-dim);
+      }
+
+      /* ---- loading veil ---- */
+      #veil {
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--void);
+        z-index: 20;
+        transition: opacity 0.8s ease;
+      }
+      #veil.is-hidden { opacity: 0; pointer-events: none; }
+      .veil-text {
+        font-family: var(--mono);
+        font-size: 0.74rem;
+        letter-spacing: 0;
+        text-transform: uppercase;
+        color: var(--muted);
+        animation: pulse 1.6s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        0%, 100% { opacity: 0.35; }
+        50% { opacity: 1; }
+      }
+
+      /* ---- fallback ---- */
+      #fallback { display: none; }
+      .fb-wrap {
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 64px 24px;
+        color: var(--parchment);
+      }
+      .fb-wrap h1 {
+        font-family: var(--display);
+        font-weight: 900;
+        font-size: 2.6rem;
+        margin: 0 0 0.2em;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+      .fb-wrap h2 {
+        font-family: var(--mono);
+        font-size: 0.8rem;
+        letter-spacing: 0;
+        text-transform: uppercase;
+        color: var(--parchment-dim);
+        margin: 2em 0 0.6em;
+      }
+      .fb-wrap p, .fb-wrap li { font-size: 0.95rem; line-height: 1.6; }
+      .fb-wrap ul { padding-left: 1.1em; }
+      .fb-wrap a { color: var(--career); }
+
+      @media (max-width: 640px) {
+        .bar-bottom { flex-direction: column; gap: 0.6rem; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        #grain { animation: none; }
+        .veil-text { animation: none; }
+        .name, .role, .bar-bottom { animation: none; opacity: 1; }
+      }
+    </style>
+
     <script>
-      document.getElementById("copyright-year").textContent =
-        new Date().getFullYear();
+      // Tiny inline helpers that must run regardless of the 3D boot.
+      const yr = document.getElementById("copyright-year");
+      if (yr) yr.textContent = new Date().getFullYear();
+
+      const horseVideo = document.getElementById("horse-bg");
+      const horseCanvas = document.getElementById("horse-fx");
+      const horseCtx = horseCanvas?.getContext("2d");
+      const horseBones = document.getElementById("horse-bones");
+      const horseBonesCtx = horseBones?.getContext("2d");
+      const HORSE_FRAME_COUNT = 78;
+      const HORSE_PIXEL_IMAGES = Array.from({ length: HORSE_FRAME_COUNT }, (_, index) => {
+        const img = new Image();
+        img.decoding = "async";
+        img.src = `/assets/horse-pixel-60/frame_${String(index).padStart(3, "0")}.webp`;
+        return img;
+      });
+      const HORSE_BONE_IMAGES = Array.from({ length: HORSE_FRAME_COUNT }, (_, index) => {
+        const img = new Image();
+        img.decoding = "async";
+        img.src = `/assets/horse-bones-60/frame_${String(index).padStart(3, "0")}.webp`;
+        return img;
+      });
+
+      function resizeHorseCanvas() {
+        if (!horseCanvas) return;
+        horseCanvas.width = window.innerWidth;
+        horseCanvas.height = window.innerHeight;
+        if (horseBones) {
+          horseBones.width = window.innerWidth;
+          horseBones.height = window.innerHeight;
+        }
+      }
+
+      function drawCoveredImage(ctx, image, width, height, smoothing) {
+        if (!ctx || !image?.complete || !image.naturalWidth || !image.naturalHeight) return null;
+        const scale = Math.max(width / image.naturalWidth, height / image.naturalHeight);
+        const drawWidth = image.naturalWidth * scale;
+        const drawHeight = image.naturalHeight * scale;
+        const x = (width - drawWidth) / 2;
+        const y = (height - drawHeight) / 2;
+        ctx.imageSmoothingEnabled = smoothing;
+        ctx.drawImage(image, x, y, drawWidth, drawHeight);
+        return { x, y, width: drawWidth, height: drawHeight };
+      }
+
+      function drawPixelGrid(ctx, bounds, columns, rows) {
+        if (!ctx || !bounds) return;
+        const stepX = bounds.width / columns;
+        const stepY = bounds.height / rows;
+        if (stepX < 3 || stepY < 3) return;
+
+        ctx.save();
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        for (let x = bounds.x; x <= bounds.x + bounds.width + 0.1; x += stepX) {
+          const sx = Math.round(x) + 0.5;
+          ctx.moveTo(sx, bounds.y);
+          ctx.lineTo(sx, bounds.y + bounds.height);
+        }
+        for (let y = bounds.y; y <= bounds.y + bounds.height + 0.1; y += stepY) {
+          const sy = Math.round(y) + 0.5;
+          ctx.moveTo(bounds.x, sy);
+          ctx.lineTo(bounds.x + bounds.width, sy);
+        }
+        ctx.strokeStyle = "rgba(4, 6, 10, 0.18)";
+        ctx.stroke();
+
+        ctx.globalCompositeOperation = "screen";
+        ctx.strokeStyle = "rgba(236, 230, 214, 0.07)";
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      function drawHorsePixelFrame(frame) {
+        if (!horseCanvas || !horseCtx) return;
+        const image = HORSE_PIXEL_IMAGES[((frame % HORSE_PIXEL_IMAGES.length) + HORSE_PIXEL_IMAGES.length) % HORSE_PIXEL_IMAGES.length];
+        horseCtx.clearRect(0, 0, horseCanvas.width, horseCanvas.height);
+        const bounds = drawCoveredImage(horseCtx, image, horseCanvas.width, horseCanvas.height, false);
+        drawPixelGrid(horseCtx, bounds, image.naturalWidth || 320, image.naturalHeight || 213);
+      }
+
+      function drawHorseBones(frame) {
+        if (!horseBones || !horseBonesCtx) return;
+        const image = HORSE_BONE_IMAGES[((frame % HORSE_BONE_IMAGES.length) + HORSE_BONE_IMAGES.length) % HORSE_BONE_IMAGES.length];
+        horseBonesCtx.clearRect(0, 0, horseBones.width, horseBones.height);
+        drawCoveredImage(horseBonesCtx, image, horseBones.width, horseBones.height, true);
+      }
+
+      function renderHorseBackground() {
+        if (!horseCanvas || !horseCtx) return;
+        if (horseCanvas.width === 0) resizeHorseCanvas();
+        const frame = Math.floor((performance.now() / 1000) * 60) % HORSE_FRAME_COUNT;
+        drawHorsePixelFrame(frame);
+        drawHorseBones(frame);
+        requestAnimationFrame(renderHorseBackground);
+      }
+
+      if (horseVideo && horseCanvas && horseCtx) {
+        resizeHorseCanvas();
+        window.addEventListener("resize", resizeHorseCanvas);
+        horseVideo.play?.().catch(() => {});
+        renderHorseBackground();
+      }
+
+      // If the module bundle fails to load, keep the homepage usable.
+      window.setTimeout(() => {
+        const veil = document.getElementById("veil");
+        if (!veil || veil.classList.contains("is-hidden")) return;
+
+        veil.classList.add("is-hidden");
+      }, 4500);
+    </script>
+
+    <script>
+      import "../scripts/scene.js";
     </script>
   </body>
-  </html>
-
-
+</html>

@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  const headerEmailLinks = document.querySelectorAll(".email-link");
+  const headerEmailLinks = document.querySelectorAll("[data-email-link]");
   headerEmailLinks.forEach((link) => {
     link.setAttribute("href", mailtoHref);
     link.addEventListener("click", function (e) {

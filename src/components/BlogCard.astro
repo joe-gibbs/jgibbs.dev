@@ -14,26 +14,18 @@ const formattedDate = dateObject
   ? dateObject.toLocaleDateString("en-AU", { day: "2-digit", month: "short", year: "numeric" })
   : undefined;
 ---
-<div class="card mb-4 blog-card">
-  <div class="card-body">
-    <h3 class="mb-1">
-      <a class="stretched-link" href={href}>{title}</a>
-    </h3>
-    {formattedDate && (
-      <div class="blogcard-meta">
-        <small class="text-muted">
-          <time datetime={isoDate}>{formattedDate}</time>
-        </small>
-      </div>
-    )}
-    {description && <p class="mb-0">{description}</p>}
-  </div>
-  
-  <style>
-    .blog-card :global(.stretched-link) {
-      text-decoration: none;
-    }
-  </style>
-</div>
+<article>
+  <h3>
+    <a href={href}>{title}</a>
+  </h3>
+  {formattedDate && (
+    <p>
+      <small>
+        <time datetime={isoDate}>{formattedDate}</time>
+      </small>
+    </p>
+  )}
+  {description && <p>{description}</p>}
+</article>
 
 

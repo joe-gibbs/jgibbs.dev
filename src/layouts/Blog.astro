@@ -16,23 +16,17 @@ const formattedDate = dateObject
   : undefined;
 ---
 <Base title={title} description={description}>
-  <div class="container blog-container">
-    <h3 class="section-heading">{title}</h3>
+  <main>
+    <h1>{title}</h1>
     {formattedDate && (
-      <div class="blog-meta">
-        <small class="text-muted"><time datetime={isoDate}>{formattedDate}</time></small>
-      </div>
+      <p>
+        <small><time datetime={isoDate}>{formattedDate}</time></small>
+      </p>
     )}
     <hr />
     <slot name="nav" />
     <slot />
-  </div>
+  </main>
 </Base>
-
-<style>
-  .blog-meta {
-    margin-top: -0.25rem;
-  }
-</style>
 
 

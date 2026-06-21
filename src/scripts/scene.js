@@ -59,6 +59,7 @@ async function boot() {
     { cat: "blog", icon: "robot", face: null, title: "Local LLM NPCs", year: "23 Dec 2023", desc: "Conversational NPCs, entirely local, in Unreal Engine.", href: "/blogs/local-llm-npcs-in-unreal-engine" },
     { cat: "blog", icon: "mountains", face: null, title: "Distant Terrain", year: "27 Aug 2023", desc: "Notes on far terrain for strategy-style worlds.", href: "/blogs/techniques-for-distant-terrain" },
 
+    { cat: "project", icon: "leaderboard", face: null, title: "AdvertBench", year: "June 2026", desc: "Ranks AI-generated image ad sets with Elo voting.", href: "https://advertbench.com" },
     { cat: "project", icon: "document", face: null, title: "Wiki Simulator", year: "2025", desc: "Alt interfaces for LLM-generated content.", href: "https://github.com/joe-gibbs/wiki-simulator" },
     { cat: "project", icon: "play", face: "/assets/channel784.png", title: "Channel 784", year: "2023", desc: "AI-generated news parody, voiced and animated.", href: "https://www.youtube.com/channel/UCn01Em4a29wbsSSyaT0tI4Q" },
     { cat: "project", icon: "crown", face: "/assets/foae.png", emblemScale: 1.2, title: "Fall of an Empire", year: "2020 —", desc: "Unreal Engine strategy game.", href: "https://fallofanempiregame.com" },
@@ -775,6 +776,23 @@ function drawIcon(ctx, id, cx, cy, S, color) {
     ctx.beginPath();
     ctx.moveTo(-0.28 * S, 0.24 * S);
     ctx.lineTo(0.28 * S, -0.24 * S);
+    ctx.stroke();
+  } else if (id === "leaderboard") {
+    for (let i = 0; i < 3; i++) {
+      const x = (-0.28 + i * 0.28) * S;
+      const h = (0.34 + i * 0.12) * S;
+      roundRect(ctx, x, 0.28 * S - h, 0.16 * S, h, 0.03 * S);
+      ctx.globalAlpha = 0.2;
+      ctx.fill();
+      ctx.globalAlpha = 1;
+      ctx.stroke();
+    }
+    ctx.beginPath();
+    ctx.arc(0.28 * S, -0.26 * S, 0.14 * S, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(0.38 * S, -0.16 * S);
+    ctx.lineTo(0.50 * S, -0.04 * S);
     ctx.stroke();
   }
 

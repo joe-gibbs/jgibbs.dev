@@ -1,0 +1,48 @@
+---
+import Blog from "../../layouts/Blog.astro";
+import ImageComparison from "../../components/ImageComparison.astro";
+import diamondMetadata from "../../../public/assets/blogs/image-editing/diamonds/manifest.json";
+const base = "/assets/blogs/image-editing/";
+const edits = [
+ ["00-original.jpg", "Original"], ["01-add-basket.png", "Add basket"],
+ ["02-add-bicycle.png", "Add bicycle"], ["03-remove-basket.png", "Remove basket"],
+ ["04-add-kite.png", "Add kite"], ["05-remove-all-additions.png", "Remove additions"],
+];
+const images = edits.map(([file, label]) => [base + file, label]);
+const composites = edits.map(([, label], i) => [
+ i === 0 ? base + "00-original.jpg" : base + "composited/" + String(i).padStart(2, "0") + ".png", label,
+]);
+const masks = edits.map((_, i) => i === 0 ? "" : base + "masks/" + String(i).padStart(2, "0") + ".png");
+const diamondBase = base + "diamonds/";
+const diamondImages = [
+ [diamondBase + "original-preview.png", "Original diamonds"],
+ [diamondBase + "edited-preview.png", "Image-tool edit"],
+ [diamondBase + "composited-preview.png", "Masked composite"],
+];
+const diamondMasks = ["", diamondBase + "mask-preview.png", diamondBase + "mask-preview.png"];
+const diamondNative = [
+ { width: 10000, height: 10000, tiles: diamondBase + "original-tiles/", tileSize: 500 },
+ { width: diamondMetadata.edited_size[0], height: diamondMetadata.edited_size[1], tiles: diamondBase + "edited-tiles/", tileSize: 256 },
+ { width: 10000, height: 10000, tiles: diamondBase + "composited-tiles/", tileSize: 500 },
+];
+---
+<Blog title="Lossless image editing with AI" wide>
+ <link rel="stylesheet" href="/assets/blogs/image-editing/comparison.css" />
+ <div class="article-copy">
+  <p>A problem when editing images with AI is that repeated edits make minor changes to other parts of the picture, so you end up with greebled nonsense or something odd.</p>
+  <p>Another problem is that it doesn't work well with arbitrary sizes. What if you want to edit a 10,000 x 10,000 pixel image?</p>
+  <p>As you can see below, even with ChatGPT Images 2.5, a model known for consistency, after a few changes the majority of the image is completely different, with brighter and more saturated colours. Also, if you magnify some part of it, you can see that there is the famous wormy greeble effect on the flowers and trees. There is a button below to enable highlighting parts of the image that changed.</p>
+ </div>
+ <h2 class="comparison-label">Unmasked</h2>
+ <ImageComparison images={images} label="Unmasked image comparison" />
+ <div class="article-copy">
+  <p>How can we get around this? One method is to ask the model to generate a mask of the parts of the image that have changed. Then we can take the original image and the modified one, and only edit the parts that are actually different. This allows for an unlimited number of changes to the image without it degrading. It could also be done manually in Photoshop, but the agent will be able to do this entire edit itself. There are obviously some limitations to this method, mainly that it only works when only part of the image is changed - operations like changing the whole colour of the image or style transfer won't work with it.</p>
+ </div>
+ <h2 class="comparison-label">Masked composite</h2>
+ <ImageComparison images={composites} masks={masks} label="Masked composite comparison" gridImage={images[0][0]} />
+ <div class="article-copy" id="large-images">
+  <p>The method is also useful for operations on arbitrarily large images. For instance, below we have a 10k x 10k image. We ask the model to change one diamond to yellow and the entire image loses its resolution. But if we use a mask we can make it so that it keeps the resolution except the single diamond that changes.</p>
+ </div>
+ <ImageComparison images={diamondImages} masks={diamondMasks} nativeImages={diamondNative} label="Diamond resolution comparison" gridImage={diamondImages[0][0]} />
+ <script is:inline defer src="/assets/blogs/image-editing/comparison.js"></script>
+</Blog>

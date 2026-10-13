@@ -5,9 +5,10 @@ export interface Props {
   title: string;
   description?: string;
   pubDate?: string | Date;
+  wide?: boolean;
 }
 
-const { title, description, pubDate } = Astro.props as Props;
+const { title, description, pubDate, wide = false } = Astro.props as Props;
 
 const dateObject = pubDate ? new Date(pubDate) : undefined;
 const isoDate = dateObject ? dateObject.toISOString().split("T")[0] : undefined;
@@ -16,14 +17,13 @@ const formattedDate = dateObject
   : undefined;
 ---
 <Base title={title} description={description}>
-  <main>
+  <main class:list={{ "main-wide": wide }}>
     <h1>{title}</h1>
     {formattedDate && (
-      <p>
+      <p class="post-date">
         <small><time datetime={isoDate}>{formattedDate}</time></small>
       </p>
     )}
-    <hr />
     <slot name="nav" />
     <slot />
   </main>

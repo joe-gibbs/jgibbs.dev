@@ -1,0 +1,51 @@
+---
+interface Props {
+  images: string[][];
+  label: string;
+  gridImage?: string;
+  masks?: string[];
+  nativeImages?: { width: number; height: number; tiles?: string; tileSize?: number }[];
+  showDimensions?: boolean;
+}
+const { images, label, gridImage = images[1][0], masks, nativeImages, showDimensions = false } = Astro.props;
+---
+<section class="image-comparison" aria-label={label} data-grid-image={gridImage} data-native-view={nativeImages ? 'true' : 'false'}>
+  <div class="comparison-panes">
+    <div class="image-pane" data-side="left" tabindex="0" aria-label="Original. Arrow keys move the magnifier.">
+      <canvas class="comparison-canvas" role="img" aria-label="Original photograph"></canvas>
+      <canvas class="lens" width="220" height="220" aria-hidden="true" hidden></canvas>
+    </div>
+    <div class="image-pane" data-side="right" tabindex="0" aria-label="Selected edit. Arrow keys move the magnifier.">
+      <canvas class="comparison-canvas" role="img" aria-label="Selected image"></canvas>
+      <canvas class="lens" width="220" height="220" aria-hidden="true" hidden></canvas>
+    </div>
+  </div>
+  <div class="controls">
+    <div class="edit-strip" aria-label="Choose an image">
+      {images.map(([file, title], i) => (
+        <button type="button" class="edit-step" data-step={i} data-mask={masks?.[i]} data-native-image={nativeImages?.[i] ? JSON.stringify(nativeImages[i]) : undefined} aria-label={`${i}: ${title}`} title={`${i}: ${title}`} aria-pressed={i === images.length - 1}>
+          <img src={file} alt="" width="60" height="80" loading="lazy" />
+          <span aria-hidden="true">{i}</span>
+        </button>
+      ))}
+    </div>
+    <button type="button" class="changed-pixels icon-button" aria-label="Show changed pixels" title="Show changed pixels" aria-pressed="false">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <g stroke="currentColor" stroke-width="1.2" opacity="0.5">
+          <rect x="3" y="3" width="4" height="4" /><rect x="10" y="3" width="4" height="4" />
+          <rect x="3" y="10" width="4" height="4" /><rect x="17" y="10" width="4" height="4" />
+          <rect x="10" y="17" width="4" height="4" /><rect x="17" y="17" width="4" height="4" />
+        </g>
+        <g fill="#b5257b"><rect x="17" y="3" width="4" height="4" /><rect x="10" y="10" width="4" height="4" /><rect x="3" y="17" width="4" height="4" /></g>
+      </svg>
+    </button>
+    {masks && <button type="button" class="show-mask icon-button" aria-label="Show mask" title="Show mask" aria-pressed="false">
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+        <rect x="3" y="3" width="18" height="18" rx="2" fill="#222" />
+        <path d="M9 6h6v4h3v8H6v-8h3z" fill="white" />
+      </svg>
+    </button>}
+  </div>
+  {showDimensions && <p class="image-dimensions" aria-live="polite"></p>}
+  <p class="comparison-error" role="alert" hidden></p>
+</section>

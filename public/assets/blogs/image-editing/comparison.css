@@ -1,0 +1,22 @@
+.article-copy { max-width: 760px; margin: 0 0 30px; }
+.image-comparison { margin-bottom: 40px; }
+.comparison-label { margin: 32px 0 14px; font-size: 18px; font-weight: 500; }
+.comparison-panes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.image-pane { position: relative; aspect-ratio: 3 / 4; overflow: hidden; background: #20251e; border-radius: 4px; cursor: crosshair; }
+.image-pane > canvas:first-child { display: block; width: 100%; height: 100%; }
+.lens { position: absolute; width: min(180px, 70%); height: auto; aspect-ratio: 1; border-radius: 50%; border: 2px solid white; box-shadow: 0 4px 24px #0008; pointer-events: none; }
+.image-comparison[data-native-view="true"] .lens { image-rendering: pixelated; }
+[hidden] { display: none !important; }
+.controls { display: flex; justify-content: center; align-items: center; gap: 20px; margin-top: 16px; }
+.edit-strip { display: flex; gap: 7px; min-width: 0; }
+.edit-step { position: relative; padding: 0; width: 54px; flex-shrink: 1; border: 2px solid transparent; border-radius: 4px; overflow: hidden; background: #222; cursor: pointer; color: white; }
+.edit-step[aria-pressed="true"] { border-color: #245a91; }
+.edit-step img { display: block; width: 100%; height: 65px; object-fit: cover; }
+.edit-step span { position: absolute; bottom: 2px; left: 3px; font: 11px system-ui, sans-serif; text-shadow: 0 1px 3px black; }
+.icon-button { display: grid; place-items: center; flex-shrink: 0; width: 36px; height: 36px; border: 1px solid #ddd; border-radius: 50%; color: #333; background: white; text-decoration: none; font-size: 22px; cursor: pointer; }
+.icon-button[aria-pressed="true"] { color: #b5257b; border-color: #b5257b; background: #fff0f8; }
+.comparison-error { text-align: center; }
+.image-dimensions, .source-images { text-align: center; color: #666; font-size: 13px; margin: 12px 0 0; }
+.source-images a + a { margin-left: 16px; }
+.icon-button:disabled { opacity: .35; cursor: default; }
+@media (max-width: 600px) { .comparison-panes { gap: 6px; } .controls { gap: 9px; } .edit-strip { gap: 4px; } .edit-step { width: 40px; } .edit-step img { height: 50px; } .icon-button { width: 30px; height: 30px; } }

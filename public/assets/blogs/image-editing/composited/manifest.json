@@ -1,0 +1,78 @@
+[
+  {
+    "step": 1,
+    "edit": "01-add-basket.png",
+    "mask": "masks/01.png",
+    "composite": "composited/01.png",
+    "resolution": [
+      3024,
+      4032
+    ],
+    "mask_coverage_percent": 2.6331,
+    "cumulative_coverage_percent": 2.6331,
+    "source": "generated addition",
+    "supplied_photos_only": true,
+    "outside_mask_identical": true
+  },
+  {
+    "step": 2,
+    "edit": "02-add-bicycle.png",
+    "mask": "masks/02.png",
+    "composite": "composited/02.png",
+    "resolution": [
+      3024,
+      4032
+    ],
+    "mask_coverage_percent": 3.911,
+    "cumulative_coverage_percent": 6.5441,
+    "source": "generated addition",
+    "supplied_photos_only": true,
+    "outside_mask_identical": true
+  },
+  {
+    "step": 3,
+    "edit": "03-remove-basket.png",
+    "mask": "masks/03.png",
+    "composite": "composited/03.png",
+    "resolution": [
+      3024,
+      4032
+    ],
+    "mask_coverage_percent": 2.6331,
+    "cumulative_coverage_percent": 6.5441,
+    "source": "original restoration",
+    "supplied_photos_only": true,
+    "outside_mask_identical": true
+  },
+  {
+    "step": 4,
+    "edit": "04-add-kite.png",
+    "mask": "masks/04.png",
+    "composite": "composited/04.png",
+    "resolution": [
+      3024,
+      4032
+    ],
+    "mask_coverage_percent": 0.5671,
+    "cumulative_coverage_percent": 7.1112,
+    "source": "generated addition",
+    "supplied_photos_only": true,
+    "outside_mask_identical": true
+  },
+  {
+    "step": 5,
+    "edit": "05-remove-all-additions.png",
+    "mask": "masks/05.png",
+    "composite": "composited/05.png",
+    "resolution": [
+      3024,
+      4032
+    ],
+    "mask_coverage_percent": 4.4781,
+    "cumulative_coverage_percent": 7.1112,
+    "source": "original restoration",
+    "supplied_photos_only": true,
+    "outside_mask_identical": true,
+    "identical_to_original": true
+  }
+]

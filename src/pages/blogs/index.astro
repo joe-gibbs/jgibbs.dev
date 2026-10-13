@@ -1,0 +1,23 @@
+---
+import Base from "../../layouts/Base.astro";
+const posts = [
+  { title: "Lossless image editing with AI", slug: "image-editing" },
+  { title: "Thoughts on GPT-5", slug: "thoughts-on-gpt-5", date: "2025-08-12", label: "12 Aug 2025" },
+  { title: "Local LLM-powered NPCs with llama.cpp, Mistral7b and StyleTTS2", slug: "local-llm-npcs-in-unreal-engine", date: "2023-12-23", label: "23 Dec 2023" },
+  { title: "Techniques for distant terrain", slug: "techniques-for-distant-terrain", date: "2023-08-27", label: "27 Aug 2023" },
+  { title: "The Immorality of Photography", slug: "immorality-of-photography", date: "2020-01-01", label: "01 Jan 2020" },
+];
+---
+<Base title="Blog — Joe Gibbs">
+  <main>
+    <h1>Blog</h1>
+    <ul class="blog-list">
+      {posts.map(post => (
+        <li>
+          <a href={`/blogs/${post.slug}/`}>{post.title}</a>
+          {post.date && <time datetime={post.date}>{post.label}</time>}
+        </li>
+      ))}
+    </ul>
+  </main>
+</Base>

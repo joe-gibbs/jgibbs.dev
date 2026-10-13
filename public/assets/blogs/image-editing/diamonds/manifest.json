@@ -1,0 +1,22 @@
+{
+  "original_size": [
+    10000,
+    10000
+  ],
+  "edited_size": [
+    1254,
+    1254
+  ],
+  "composited_size": [
+    10000,
+    10000
+  ],
+  "selected_pixels": 15232,
+  "outside_mask_identical": true,
+  "selected_pixels_from_supplied_edit": true,
+  "centre": [
+    5000,
+    5000
+  ],
+  "tile_size": 500
+}

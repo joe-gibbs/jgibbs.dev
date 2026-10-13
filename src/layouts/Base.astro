@@ -11,6 +11,7 @@ const { title, description } = Astro.props as Props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script defer src="/scripts/scripts.js"></script>
+    <link rel="stylesheet" href="/styles/blog.css" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
@@ -21,31 +22,22 @@ const { title, description } = Astro.props as Props;
     <title>{title}</title>
   </head>
   <body>
-    <header>
-      <p><a href="/">Joe Gibbs</a></p>
-      <nav>
+    <header class="site-header">
+      <a href="/" class="site-name">Joe Gibbs</a>
+      <nav aria-label="Site navigation">
         <a href="/">Home</a>
-        <a href="/#career">Career</a>
-        <a href="/#blog">Blog</a>
-        <a href="/#projects">Projects</a>
+        <a href="/blogs/">Blog</a>
         <a href="#" data-email-link>Contact</a>
       </nav>
-      <hr />
     </header>
     <slot />
-    <footer>
-      <hr />
-      <p>
-        <a href="https://www.linkedin.com/in/joe-gibbs-513a03172/">LinkedIn</a>
-      </p>
-      <p>
-        <a href="https://news.ycombinator.com/user?id=joegibbs">Hacker News</a>
-      </p>
+    <footer class="site-footer">
+      <a href="/blogs/">All blogs</a>
+      <a href="https://www.linkedin.com/in/joe-gibbs-513a03172/">LinkedIn</a>
+      <a href="https://news.ycombinator.com/user?id=joegibbs">Hacker News</a>
       <noscript>You'll need to enable JavaScript to see the email, it's to prevent
         bots from scraping it.</noscript>
-      <p>
-        <a href="https://github.com/joe-gibbs">Github</a>
-      </p>
+      <a href="https://github.com/joe-gibbs">GitHub</a>
     </footer>
   </body>
   </html>
